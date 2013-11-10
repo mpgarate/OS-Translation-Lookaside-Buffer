@@ -5,6 +5,25 @@
 #include "cpu.h"
 #include "mmu.h"
 
+/* Macro to print verbose statements and flush stdout */
+#ifdef verbose
+  #define v(fmt)        SAY0(fmt)
+  #define v0(fmt)         {printf(fmt); fflush(stdout);}
+  #define v1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
+  #define v2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
+#endif
+
+/* Set this to 1 to print out debug statements */
+#define DEBUG 1
+
+/* Macro to print verbose statements and flush stdout */
+#ifdef DEBUG
+  #define SAY(fmt)        SAY0(fmt)
+  #define SAY0(fmt)         {printf(fmt); fflush(stdout);}
+  #define SAY1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
+  #define SAY2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
+#endif
+
 /* This is some of the code that I wrote. You may use any of this code
    you like, but you certainly don't have to.
 */
@@ -25,7 +44,6 @@ typedef struct {
   unsigned int mr_pframe;       // 32 bits containing the modified bit, reference bit,
                                 // and 20-bit page frame number
 } TLB_ENTRY;
-
 
 
 // This is the actual TLB array. It should be dynamically allocated
@@ -59,24 +77,40 @@ BOOL tlb_miss;
 #define PFRAME_MASK 0x000FFFFF            //lowest 20 bits of second word
 
 
+
 // Initialize the TLB (called by the mmu)
 void tlb_initialize()
 {
+  SAY("Got here\n");
   //Here's how you can allocate a TLB of the right size
   tlb = (TLB_ENTRY *) malloc(num_tlb_entries * sizeof(TLB_ENTRY));
 
   //This is the mask to perform a MOD operation (see above)
+  //If num_tlb_entries is 128 = 1000 0000
+  //Then mask looks like:       0999 9999
   mod_tlb_entries_mask = num_tlb_entries - 1;  
 
   //Fill in rest here...
 
 }
 
+int get_valid_bit(TLB_ENTRY entry){
+}
+
+void clear_valid_bit(TLB_ENTRY entry){
+  if(get_valid_bit(entry)){
+    entry.vbit_and_vpage & VBIT_MASK;
+  }
+}
+
 // This clears out the entire TLB, by clearing the
 // valid bit for every entry.
 void tlb_clear_all() 
 {
-  // FILL THIS IN
+  int i;
+  for (i = 0; i<num_tlb_entries; i++){
+    clear_valid_bit(tlb[i]);
+  }
 }
 
 
