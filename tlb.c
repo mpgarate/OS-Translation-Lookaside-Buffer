@@ -77,11 +77,56 @@ BOOL tlb_miss;
 #define PFRAME_MASK 0x000FFFFF            //lowest 20 bits of second word
 
 
+/*************************************/
+/***** Use masks to get values *******/
+/*************************************/
+/* vbit_and_vpage;  // 32 bits containing the valid bit and the 20bit
+                                // virtual page number.
+   mr_pframe;       // 32 bits containing the modified bit, reference bit,
+                                // and 20-bit page frame number
+*/
+VPAGE_NUMBER get_vpage_number(TLB_ENTRY entry){
+  return entry.vbit_and_vpage & VPAGE_MASK;
+}
+
+PAGEFRAME_NUMBER get_pageframe_number(TLB_ENTRY entry){
+  return entry.mr_pframe & PFRAME_MASK;
+}
+
+int get_valid_bit(TLB_ENTRY entry){
+  return entry.vbit_and_vpage & VBIT_MASK;
+}
+
+void set_r_bit(TLB_ENTRY entry, BOOL r_bit){
+  if (r_bit){
+    entry.mr_pframe = entry.mr_pframe | RBIT_MASK;
+  }
+  else{
+    entry.mr_pframe = entry.mr_pframe & ~RBIT_MASK;
+  }
+}
+
+void set_m_bit(TLB_ENTRY entry, BOOL m_bit){
+  if (m_bit){
+    entry.mr_pframe = entry.mr_pframe | MBIT_MASK;
+  }
+  else{
+    entry.mr_pframe = entry.mr_pframe & ~MBIT_MASK;
+  }
+}
+void set_vpage(TLB_ENTRY entry, VPAGE_NUMBER vpage){
+
+}
+
+void set_pageframe(TLB_ENTRY entry, PAGEFRAME_NUMBER pf_number){
+  
+}
+
+
 
 // Initialize the TLB (called by the mmu)
 void tlb_initialize()
 {
-  SAY("Got here\n");
   //Here's how you can allocate a TLB of the right size
   tlb = (TLB_ENTRY *) malloc(num_tlb_entries * sizeof(TLB_ENTRY));
 
@@ -92,9 +137,6 @@ void tlb_initialize()
 
   //Fill in rest here...
 
-}
-
-int get_valid_bit(TLB_ENTRY entry){
 }
 
 void clear_valid_bit(TLB_ENTRY entry){
@@ -126,6 +168,18 @@ void tlb_clear_entry(VPAGE_NUMBER vpage) {
   // FILL THIS IN
 }
 
+
+TLB_ENTRY find_by_vpage_number(VPAGE_NUMBER vpage){
+  int i;
+  for (i = 0; i < num_tlb_entries; i++){
+    if(get_valid_bit(tlb[i])){
+      SAY2("Checking %d against %d \n", vpage, get_vpage_number(tlb[i]));
+      if (get_vpage_number(tlb[i]) == vpage) return tlb[i];
+    }
+  }
+}
+
+
 // Returns a page frame number if there is a TLB hit. If there is a TLB
 // miss, then it sets tlb_miss (see above) to TRUE.  It sets the R
 // bit of the entry and, if the specified operation is a STORE,
@@ -133,7 +187,15 @@ void tlb_clear_entry(VPAGE_NUMBER vpage) {
 
 PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
 {
-  // FILL THIS IN
+  TLB_ENTRY entry = find_by_vpage_number(vpage);
+  if(get_valid_bit(entry)){
+    //set_r_bit(entry);
+    //if (op == STORE) set_m_bit(entry);
+    return get_pageframe_number(entry);
+  }
+  else{
+    tlb_miss = TRUE;
+  }
 }
 
 // Uses an NRU clock algorithm, where the first entry with
@@ -145,7 +207,7 @@ int clock_hand = 0;  // points to next TLB entry to consider evicting
 void tlb_insert(VPAGE_NUMBER new_vpage, PAGEFRAME_NUMBER new_pframe,
 		BOOL new_mbit, BOOL new_rbit)
 {
-
+  TLB_ENTRY entry = tlb[clock_hand];
   // Starting at the clock_hand'th entry, find first entry to
   // evict with either valid bit  = 0 or the R bit = 0. If there
   // is no such entry, then just evict the entry pointed to by
@@ -158,6 +220,13 @@ void tlb_insert(VPAGE_NUMBER new_vpage, PAGEFRAME_NUMBER new_pframe,
 
   // Then, insert the new vpage, pageframe, M bit, and R bit into the
   // TLB entry that was just found (and possibly evicted).
+
+  if (!get_valid_bit(entry)){
+    set_vpage(entry, new_vpage);
+    set_pageframe(entry, new_pframe);
+    set_m_bit(entry, new_mbit);
+    set_r_bit(entry, new_rbit);
+  }
 
   // Finally, set clock_hand to point to the next entry after the
   // entry found above.
