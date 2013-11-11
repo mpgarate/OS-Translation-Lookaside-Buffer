@@ -98,11 +98,11 @@ int get_valid_bit(int i){
 }
 
 int get_r_bit(int i){
-  return tlb[i].mr_pframe & RBIT_MASK;
+  return (tlb[i].mr_pframe & RBIT_MASK) >> 30;
 }
 
 int get_m_bit(int i){
-  return tlb[i].mr_pframe & MBIT_MASK;
+  return (tlb[i].mr_pframe & MBIT_MASK) >> 31;
 }
 
 void set_foo_bit(int i, BOOL value, int mask){
