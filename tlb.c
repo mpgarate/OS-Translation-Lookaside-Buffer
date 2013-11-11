@@ -219,7 +219,7 @@ PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
     TLB_ENTRY entry = tlb[i];
     set_r_bit(i,TRUE);
     if (op == STORE) set_m_bit(i,TRUE);
-    SAY1("tlb_lookup returning %d \n", get_pageframe_number(i));
+    //SAY1("tlb_lookup returning %d \n", get_pageframe_number(i));
     return get_pageframe_number(i);
   }
   tlb_miss = TRUE;
@@ -297,16 +297,15 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
     write_entry_to_mmu(i);
   }
 
-  if (!get_valid_bit(i)){
-    set_vpage(i, new_vpage);
-    set_pageframe(i, new_pframe);
-    set_m_bit(i, new_mbit);
-    set_r_bit(i, new_rbit);
-    set_valid_bit(i, TRUE);
-    SAY2("Should match: %x | %x\n", 1, get_valid_bit(i));
-    //print_entry(i);
-    print_table();
-  }
+  set_vpage(i, new_vpage);
+  set_pageframe(i, new_pframe);
+  set_m_bit(i, new_mbit);
+  set_r_bit(i, new_rbit);
+  set_valid_bit(i, TRUE);
+  //SAY2("Should match: %x | %x\n", 1, get_valid_bit(i));
+  //print_entry(i);
+  //print_table();
+
   clock_hand = (i + 1) % num_tlb_entries;
 }
 
