@@ -107,10 +107,10 @@ int get_m_bit(int i){
 
 void set_foo_bit(int i, BOOL value, int mask){
   if(value){
-    tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | mask;
+    tlb[i].mr_pframe = tlb[i].vbit_and_vpage | mask;
   }
   else{
-    tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~mask;
+    tlb[i].mr_pframe = tlb[i].vbit_and_vpage & ~mask;
   }
 }
 
@@ -119,6 +119,7 @@ void set_valid_bit(int i, BOOL value){
   SAY1("from %i.\n", tlb[i].vbit_and_vpage & VBIT_MASK);
   //set_foo_bit(i, value, VBIT_MASK);
   if (value == TRUE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | VBIT_MASK;
+  if (value == FALSE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VBIT_MASK;
   SAY1("valid bit is now %i\n", get_valid_bit(i));
 }
 
@@ -139,12 +140,12 @@ void set_pageframe(int i, PAGEFRAME_NUMBER pf_number){
 
 void clear_valid_bit(int i){
   if(get_valid_bit(i)){
-    tlb[i].vbit_and_vpage & VBIT_MASK;
+    tlb[i].vbit_and_vpage & ~VBIT_MASK;
   }
 }
 void clear_r_bit(int i){
   if(get_valid_bit(i)){
-    tlb[i].vbit_and_vpage & RBIT_MASK;
+    tlb[i].vbit_and_vpage & ~RBIT_MASK;
   }
 }
 
@@ -196,8 +197,8 @@ int find_by_vpage_number(VPAGE_NUMBER vpage){
   int i;
   for (i = 0; i < num_tlb_entries; i++){
     if(get_valid_bit(i)){
-      //SAY2("Checking %d against %d \n", vpage, get_vpage_number(tlb[i]));
-      //if (get_vpage_number(tlb[i]) == vpage) return i;
+      //SAY2("Checking %d against %d \n", vpage, get_vpage_number(i));
+      if (get_vpage_number(i) == vpage) return i;
     }
   }
   return num_tlb_entries + 1; //impossible index
@@ -211,23 +212,24 @@ int find_by_vpage_number(VPAGE_NUMBER vpage){
 
 PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
 {
-  tlb_miss = TRUE;
   int i = find_by_vpage_number(vpage);
   if (i <= num_tlb_entries){
-    SAY("GOT HERE\n");
+    tlb_miss = FALSE;
+    //SAY("GOT HERE\n");
     TLB_ENTRY entry = tlb[i];
     set_r_bit(i,TRUE);
     if (op == STORE) set_m_bit(i,TRUE);
     SAY1("tlb_lookup returning %d \n", get_pageframe_number(i));
-    tlb_miss = FALSE;
     return get_pageframe_number(i);
   }
+  tlb_miss = TRUE;
 }
 
 void write_entry_to_mmu(i){
   mmu_modify_mbit_bitmap(get_pageframe_number(i), get_m_bit(i));
   mmu_modify_rbit_bitmap(get_pageframe_number(i), get_r_bit(i));
 }
+
 
 void print_entry(int i){
   SAY("-----------------------------------------------------\n");
@@ -239,6 +241,13 @@ void print_entry(int i){
   SAY1("%x         ",get_r_bit(i));
   SAY1("%x          ",get_pageframe_number(i));
   SAY("\n");
+}
+
+void print_table(){
+  int i = 0;
+  for (i = 0; i< num_tlb_entries; i++){
+    if (get_valid_bit(i)) print_entry(i);
+  }
 }
 
 // Uses an NRU clock algorithm, where the first entry with
@@ -295,8 +304,8 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
     set_r_bit(i, new_rbit);
     set_valid_bit(i, TRUE);
     SAY2("Should match: %x | %x\n", 1, get_valid_bit(i));
-    print_entry(i);
     //print_entry(i);
+    print_table();
   }
   clock_hand = (i + 1) % num_tlb_entries;
 }
