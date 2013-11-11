@@ -94,7 +94,20 @@ PAGEFRAME_NUMBER get_pageframe_number(TLB_ENTRY entry){
 }
 
 int get_valid_bit(TLB_ENTRY entry){
+  //SAY1("Getting valid bit: %d\n", entry.vbit_and_vpage & VBIT_MASK);
   return entry.vbit_and_vpage & VBIT_MASK;
+}
+
+int get_r_bit(TLB_ENTRY entry){
+  
+}
+
+int get_m_bit(TLB_ENTRY entry){
+
+}
+
+void set_valid_bit(TLB_ENTRY entry, int value){
+
 }
 
 void set_r_bit(TLB_ENTRY entry, BOOL r_bit){
@@ -115,11 +128,11 @@ void set_m_bit(TLB_ENTRY entry, BOOL m_bit){
   }
 }
 void set_vpage(TLB_ENTRY entry, VPAGE_NUMBER vpage){
-
+  entry.vbit_and_vpage = entry.vbit_and_vpage | VPAGE_MASK;
 }
 
 void set_pageframe(TLB_ENTRY entry, PAGEFRAME_NUMBER pf_number){
-  
+
 }
 
 
@@ -169,14 +182,15 @@ void tlb_clear_entry(VPAGE_NUMBER vpage) {
 }
 
 
-TLB_ENTRY find_by_vpage_number(VPAGE_NUMBER vpage){
+int find_by_vpage_number(VPAGE_NUMBER vpage){
   int i;
   for (i = 0; i < num_tlb_entries; i++){
     if(get_valid_bit(tlb[i])){
       SAY2("Checking %d against %d \n", vpage, get_vpage_number(tlb[i]));
-      if (get_vpage_number(tlb[i]) == vpage) return tlb[i];
+      if (get_vpage_number(tlb[i]) == vpage) return i;
     }
   }
+  return num_tlb_entries + 1; //impossible index
 }
 
 
@@ -187,49 +201,81 @@ TLB_ENTRY find_by_vpage_number(VPAGE_NUMBER vpage){
 
 PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
 {
-  TLB_ENTRY entry = find_by_vpage_number(vpage);
-  if(get_valid_bit(entry)){
-    //set_r_bit(entry);
-    //if (op == STORE) set_m_bit(entry);
-    return get_pageframe_number(entry);
+  int entry_index = find_by_vpage_number(vpage);
+  if (entry_index <= num_tlb_entries){
+    TLB_ENTRY entry = tlb[entry_index]; 
+    if(get_valid_bit(entry)){
+      //set_r_bit(entry);
+      //if (op == STORE) set_m_bit(entry);
+      SAY1("tlb_lookup returning %d \n", get_pageframe_number(entry));
+      return get_pageframe_number(entry);
+    }
   }
   else{
     tlb_miss = TRUE;
   }
 }
 
+void write_entry_to_mmu(TLB_ENTRY entry){
+  mmu_modify_mbit_bitmap(get_pageframe_number(entry), get_m_bit(entry));
+  mmu_modify_rbit_bitmap(get_pageframe_number(entry), get_r_bit(entry));
+}
+
 // Uses an NRU clock algorithm, where the first entry with
 // either a cleared valid bit or cleared R bit is chosen.
+
+// Starting at the clock_hand'th entry, find first entry to
+// evict with either valid bit  = 0 or the R bit = 0. If there
+// is no such entry, then just evict the entry pointed to by
+// the clock hand.
+
+// Then, if the entry to evict has a valid bit = 1,
+// write the M and R bits of the of entry back to the M and R
+// bitmaps, respectively, in the MMU (see mmu_modify_rbit_bitmap, etc.
+// in mmu.h)
+
+// Then, insert the new vpage, pageframe, M bit, and R bit into the
+// TLB entry that was just found (and possibly evicted).
+
+// Finally, set clock_hand to point to the next entry after the
+// entry found above.
+  
 
 int clock_hand = 0;  // points to next TLB entry to consider evicting
 
 
-void tlb_insert(VPAGE_NUMBER new_vpage, PAGEFRAME_NUMBER new_pframe,
-		BOOL new_mbit, BOOL new_rbit)
-{
-  TLB_ENTRY entry = tlb[clock_hand];
-  // Starting at the clock_hand'th entry, find first entry to
-  // evict with either valid bit  = 0 or the R bit = 0. If there
-  // is no such entry, then just evict the entry pointed to by
-  // the clock hand.
+void tlb_insert(VPAGE_NUMBER new_vpage,
+                PAGEFRAME_NUMBER new_pframe,
+                BOOL new_mbit,
+                BOOL new_rbit) {
 
-  // Then, if the entry to evict has a valid bit = 1,
-  // write the M and R bits of the of entry back to the M and R
-  // bitmaps, respectively, in the MMU (see mmu_modify_rbit_bitmap, etc.
-  // in mmu.h)
+  int i = clock_hand;
+  TLB_ENTRY entry = tlb[i];
+  do {
+    entry = tlb[i];
+    //SAY1("tlb_insert is checking entry %d",i);
+    if (!get_valid_bit(entry) || !get_r_bit(entry)){
+      //SAY1("tlb_insert found entry %d",i);
+      break;
+    }
+    else{
+      /* Increment and loop */
+      i = (i + 1) % num_tlb_entries;
+    }
+  } while (i != clock_hand);
 
-  // Then, insert the new vpage, pageframe, M bit, and R bit into the
-  // TLB entry that was just found (and possibly evicted).
+  if (get_valid_bit(entry)){
+    write_entry_to_mmu(entry);
+  }
 
   if (!get_valid_bit(entry)){
     set_vpage(entry, new_vpage);
     set_pageframe(entry, new_pframe);
     set_m_bit(entry, new_mbit);
     set_r_bit(entry, new_rbit);
+    set_valid_bit(entry,TRUE);
   }
-
-  // Finally, set clock_hand to point to the next entry after the
-  // entry found above.
+  clock_hand = (i + 1) % num_tlb_entries;
 }
 
 
