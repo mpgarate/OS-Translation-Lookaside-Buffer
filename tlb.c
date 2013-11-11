@@ -89,20 +89,20 @@ VPAGE_NUMBER get_vpage_number(int i){
   return tlb[i].vbit_and_vpage & VPAGE_MASK;
 }
 
-PAGEFRAME_NUMBER get_pageframe_number(TLB_ENTRY entry){
-  return entry.mr_pframe & PFRAME_MASK;
+PAGEFRAME_NUMBER get_pageframe_number(int i){
+  return tlb[i].mr_pframe & PFRAME_MASK;
 }
 
 int get_valid_bit(int i){
   return tlb[i].vbit_and_vpage & VBIT_MASK;
 }
 
-int get_r_bit(TLB_ENTRY entry){
-  return entry.mr_pframe & RBIT_MASK;
+int get_r_bit(int i){
+  return tlb[i].mr_pframe & RBIT_MASK;
 }
 
-int get_m_bit(TLB_ENTRY entry){
-  return entry.mr_pframe & MBIT_MASK;
+int get_m_bit(int i){
+  return tlb[i].mr_pframe & MBIT_MASK;
 }
 
 void set_foo_bit(int i, BOOL value, int mask){
@@ -119,33 +119,22 @@ void set_valid_bit(int i, BOOL value){
   SAY1("Setting valid bit to %x ", value);
   SAY1("from %x.\n", entry.vbit_and_vpage & VBIT_MASK);
   set_foo_bit(i, value, VBIT_MASK);
-/*
-  if(value){
-    entry.vbit_and_vpage = entry.vbit_and_vpage | VBIT_MASK;
-  }
-  else{
-    entry.vbit_and_vpage = entry.vbit_and_vpage & ~VBIT_MASK;
-  }
-*/
   SAY1("valid bit is now %x\n", get_valid_bit(i));
 }
 
-void set_r_bit(TLB_ENTRY entry, BOOL r_bit){
-  //set_foo_bit(entry, r_bit, RBIT_MASK);
+void set_r_bit(int i, BOOL r_bit){
+  set_foo_bit(i, r_bit, RBIT_MASK);
 }
 
-void set_m_bit(TLB_ENTRY entry, BOOL m_bit){
-  //set_foo_bit(entry, m_bit, MBIT_MASK);
+void set_m_bit(int i, BOOL m_bit){
+  set_foo_bit(i, m_bit, MBIT_MASK);
 }
 void set_vpage(int i, VPAGE_NUMBER vpage){
-  //SAY1("Setting vpage to %x ", vpage);
-  //SAY1("from %x.\n", entry.vbit_and_vpage & VPAGE_MASK);
   tlb[i].vbit_and_vpage = vpage & VPAGE_MASK;
-  //SAY1("vpage is now %x\n", entry.vbit_and_vpage & VPAGE_MASK);
 }
 
-void set_pageframe(TLB_ENTRY entry, PAGEFRAME_NUMBER pf_number){
-  entry.mr_pframe = pf_number & PFRAME_MASK;
+void set_pageframe(int i, PAGEFRAME_NUMBER pf_number){
+  tlb[i].mr_pframe = pf_number & PFRAME_MASK;
 }
 
 void clear_valid_bit(int i){
@@ -222,34 +211,32 @@ int find_by_vpage_number(VPAGE_NUMBER vpage){
 PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
 {
   tlb_miss = TRUE;
-  int entry_index = find_by_vpage_number(vpage);
-  if (entry_index <= num_tlb_entries){
+  int i = find_by_vpage_number(vpage);
+  if (i <= num_tlb_entries){
     SAY("GOT HERE\n");
-    TLB_ENTRY entry = tlb[entry_index];
-    set_r_bit(entry,TRUE);
-    if (op == STORE) set_m_bit(entry,TRUE);
-    SAY1("tlb_lookup returning %d \n", get_pageframe_number(entry));
+    TLB_ENTRY entry = tlb[i];
+    set_r_bit(i,TRUE);
+    if (op == STORE) set_m_bit(i,TRUE);
+    SAY1("tlb_lookup returning %d \n", get_pageframe_number(i));
     tlb_miss = FALSE;
-    return get_pageframe_number(entry);
+    return get_pageframe_number(i);
   }
 }
 
-void write_entry_to_mmu(TLB_ENTRY entry){
-  SAY("writing to mmu\n");
-  mmu_modify_mbit_bitmap(get_pageframe_number(entry), get_m_bit(entry));
-  mmu_modify_rbit_bitmap(get_pageframe_number(entry), get_r_bit(entry));
+void write_entry_to_mmu(i){
+  mmu_modify_mbit_bitmap(get_pageframe_number(i), get_m_bit(i));
+  mmu_modify_rbit_bitmap(get_pageframe_number(i), get_r_bit(i));
 }
 
 void print_entry(int i){
-  TLB_ENTRY entry = tlb[i];
   SAY("-----------------------------------------------------\n");
   SAY("PID --- VALID --- VP_NO --- MOD --- REF --- PF_NO ---\n");
   SAY1("%d        ",i);
   SAY1("%d          ",get_valid_bit(i));
-  //SAY1("%d       "),get_vpage_number(entry));
-  SAY1("%d         ",get_m_bit(entry));
-  SAY1("%d         ",get_r_bit(entry));
-  SAY1("%d          ",get_pageframe_number(entry));
+  SAY1("%d       ",get_vpage_number(i));
+  SAY1("%d         ",get_m_bit(i));
+  SAY1("%d         ",get_r_bit(i));
+  SAY1("%d          ",get_pageframe_number(i));
   SAY("\n");
 }
 
@@ -286,7 +273,7 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
   do {
     entry = tlb[i];
     //SAY1("tlb_insert is checking entry %d",i);
-    if (!get_valid_bit(i) || !get_r_bit(entry)){
+    if (!get_valid_bit(i) || !get_r_bit(i)){
       //SAY1("tlb_insert found entry %d\n",i);
       break;
     }
@@ -297,14 +284,14 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
   } while (i != clock_hand);
 
   if (get_valid_bit(i)){
-    write_entry_to_mmu(entry);
+    write_entry_to_mmu(i);
   }
 
   if (!get_valid_bit(i)){
     set_vpage(i, new_vpage);
-    set_pageframe(tlb[i], new_pframe);
-    set_m_bit(tlb[i], new_mbit);
-    set_r_bit(tlb[i], new_rbit);
+    set_pageframe(i, new_pframe);
+    set_m_bit(i, new_mbit);
+    set_r_bit(i, new_rbit);
     set_valid_bit(i, TRUE);
     SAY2("Should match: %x | %x\n", 1, get_valid_bit(i));
     print_entry(i);
