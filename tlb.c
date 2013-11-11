@@ -99,15 +99,34 @@ int get_valid_bit(TLB_ENTRY entry){
 }
 
 int get_r_bit(TLB_ENTRY entry){
-  
+  return entry.mr_pframe & RBIT_MASK;
 }
 
 int get_m_bit(TLB_ENTRY entry){
-
+  return entry.mr_pframe & MBIT_MASK;
 }
 
-void set_valid_bit(TLB_ENTRY entry, int value){
+void set_foo_bit(unsigned int foo, BOOL value, int mask){
+  if(value){
+    foo = foo | mask;
+  }
+  else{
+    foo = foo & ~mask;
+  }
+}
 
+void set_valid_bit(TLB_ENTRY entry, BOOL value){
+  SAY1("Setting valid bit to %x \n", value);
+  //SAY1("Entry contained: %x \n",  entry.vbit_and_vpage & VBIT_MASK);
+  //SAY1("My attempt: %x \n",  entry.vbit_and_vpage | VBIT_MASK);
+  //set_foo_bit(entry.vbit_and_vpage, value, VBIT_MASK);
+  if (value){
+    entry.vbit_and_vpage = entry.vbit_and_vpage | VBIT_MASK;
+  }
+  else {
+    entry.vbit_and_vpage = entry.vbit_and_vpage & ~VBIT_MASK;
+  }
+  //SAY1("Valid bit is now %x \n", entry.vbit_and_vpage & VBIT_MASK);
 }
 
 void set_r_bit(TLB_ENTRY entry, BOOL r_bit){
@@ -201,18 +220,16 @@ int find_by_vpage_number(VPAGE_NUMBER vpage){
 
 PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
 {
+  tlb_miss = TRUE;
   int entry_index = find_by_vpage_number(vpage);
   if (entry_index <= num_tlb_entries){
     TLB_ENTRY entry = tlb[entry_index]; 
-    if(get_valid_bit(entry)){
-      //set_r_bit(entry);
-      //if (op == STORE) set_m_bit(entry);
-      SAY1("tlb_lookup returning %d \n", get_pageframe_number(entry));
-      return get_pageframe_number(entry);
-    }
-  }
-  else{
-    tlb_miss = TRUE;
+    tlb_miss = FALSE;
+    set_r_bit(entry,TRUE);
+    if (op == STORE) set_m_bit(entry,TRUE);
+    SAY1("tlb_lookup returning %d \n", get_pageframe_number(entry));
+    tlb_miss = FALSE;
+    return get_pageframe_number(entry);
   }
 }
 
