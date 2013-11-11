@@ -94,7 +94,7 @@ PAGEFRAME_NUMBER get_pageframe_number(int i){
 }
 
 int get_valid_bit(int i){
-  return tlb[i].vbit_and_vpage & VBIT_MASK;
+  return (tlb[i].vbit_and_vpage & VBIT_MASK) >> 31;
 }
 
 int get_r_bit(int i){
@@ -115,11 +115,11 @@ void set_foo_bit(int i, BOOL value, int mask){
 }
 
 void set_valid_bit(int i, BOOL value){
-  TLB_ENTRY entry = tlb[i];
-  SAY1("Setting valid bit to %x ", value);
-  SAY1("from %x.\n", entry.vbit_and_vpage & VBIT_MASK);
-  set_foo_bit(i, value, VBIT_MASK);
-  SAY1("valid bit is now %x\n", get_valid_bit(i));
+  SAY1("Setting valid bit to %i ", value);
+  SAY1("from %i.\n", tlb[i].vbit_and_vpage & VBIT_MASK);
+  //set_foo_bit(i, value, VBIT_MASK);
+  if (value == TRUE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | VBIT_MASK;
+  SAY1("valid bit is now %i\n", get_valid_bit(i));
 }
 
 void set_r_bit(int i, BOOL r_bit){
@@ -160,6 +160,7 @@ void tlb_initialize()
   mod_tlb_entries_mask = num_tlb_entries - 1;  
 
   //Fill in rest here...
+  tlb_clear_all();
 
 }
 
@@ -231,12 +232,12 @@ void write_entry_to_mmu(i){
 void print_entry(int i){
   SAY("-----------------------------------------------------\n");
   SAY("PID --- VALID --- VP_NO --- MOD --- REF --- PF_NO ---\n");
-  SAY1("%d        ",i);
-  SAY1("%d          ",get_valid_bit(i));
-  SAY1("%d       ",get_vpage_number(i));
-  SAY1("%d         ",get_m_bit(i));
-  SAY1("%d         ",get_r_bit(i));
-  SAY1("%d          ",get_pageframe_number(i));
+  SAY1("%x        ",i);
+  SAY1("%x          ",get_valid_bit(i));
+  SAY1("%x       ",get_vpage_number(i));
+  SAY1("%x         ",get_m_bit(i));
+  SAY1("%x         ",get_r_bit(i));
+  SAY1("%x          ",get_pageframe_number(i));
   SAY("\n");
 }
 
