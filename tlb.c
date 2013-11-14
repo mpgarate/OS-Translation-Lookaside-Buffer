@@ -127,19 +127,15 @@ void set_m_bit(int i, BOOL m_bit){
   set_foo_bit(i, m_bit, MBIT_MASK);
 }
 void set_vpage(int i, VPAGE_NUMBER vpage){
-  //SAY1("setting vpage to %x\n", vpage);
   unsigned int masked_vpage = vpage & VPAGE_MASK;
   tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VPAGE_MASK;
   tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | masked_vpage;
-  //SAY1("vpage set to %x\n", get_vpage_number(i));
 }
 
 void set_pageframe(int i, PAGEFRAME_NUMBER pf_number){
-  //SAY1("setting pframe to %x\n", pf_number);
   unsigned int masked_pfn = pf_number & PFRAME_MASK;
   tlb[i].mr_pframe = tlb[i].mr_pframe & ~PFRAME_MASK;
   tlb[i].mr_pframe = tlb[i].mr_pframe | masked_pfn;
-  //SAY1("pf set to %x\n", get_pageframe_number(i));
 }
 
 void clear_valid_bit(int i){
@@ -183,8 +179,6 @@ void tlb_initialize()
   tlb = (TLB_ENTRY *) malloc(num_tlb_entries * sizeof(TLB_ENTRY));
 
   //This is the mask to perform a MOD operation (see above)
-  //If num_tlb_entries is 128 = 1000 0000
-  //Then mask looks like:       0999 9999
   mod_tlb_entries_mask = num_tlb_entries - 1;  
 
   //Fill in rest here...
@@ -196,8 +190,6 @@ void tlb_initialize()
 // valid bit for every entry.
 void tlb_clear_all() 
 {
-
-  SAY("clearing all!!!\n");
   int i;
   for (i = 0; i<num_tlb_entries; i++){
     clear_valid_bit(i);
@@ -226,7 +218,6 @@ int find_by_vpage_number(VPAGE_NUMBER vpage){
   int i;
   for (i = 0; i < num_tlb_entries; i++){
     if(get_valid_bit(i)){
-      //SAY2("Checking %d against %d \n", vpage, get_vpage_number(i));
       if (get_vpage_number(i) == vpage) return i;
     }
   }
@@ -242,25 +233,19 @@ int find_by_vpage_number(VPAGE_NUMBER vpage){
 PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
 {
   int i = find_by_vpage_number(vpage);
+
+  // Check If the index is out of bounds. This means that the tlb entry
+  // could not be located.
   if (i <= num_tlb_entries){
     tlb_miss = FALSE;
-    //SAY("GOT HERE\n");
-    TLB_ENTRY entry = tlb[i];
     set_r_bit(i,TRUE);
     if (op == STORE) set_m_bit(i,TRUE);
-    //SAY1("tlb_lookup returning %d \n", get_pageframe_number(i));
     return get_pageframe_number(i);
   }
   tlb_miss = TRUE;
-  //SAY1("tlb_miss on vpage %x\n",vpage);
-  //if (vpage == 0x99958) SAY1("tlb_miss on vpage %x\n",vpage);
 }
 
 
-void write_entry_to_mmu(i){
-  mmu_modify_mbit_bitmap(get_pageframe_number(i), get_m_bit(i));
-  mmu_modify_rbit_bitmap(get_pageframe_number(i), get_r_bit(i));
-}
 
 // Uses an NRU clock algorithm, where the first entry with
 // either a cleared valid bit or cleared R bit is chosen.
@@ -281,6 +266,10 @@ void write_entry_to_mmu(i){
 // Finally, set clock_hand to point to the next entry after the
 // entry found above.
   
+void write_entry_to_mmu(i){
+  mmu_modify_mbit_bitmap(get_pageframe_number(i), get_m_bit(i));
+  mmu_modify_rbit_bitmap(get_pageframe_number(i), get_r_bit(i));
+}
 
 int clock_hand = 0;  // points to next TLB entry to consider evicting
 
@@ -291,12 +280,8 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
                 BOOL new_rbit)
 {
   int i = clock_hand;
-  TLB_ENTRY entry = tlb[i];
   do {
-    entry = tlb[i];
-    //SAY1("tlb_insert is checking entry %d",i);
     if (!get_valid_bit(i) || !get_r_bit(i)){
-      //SAY1("tlb_insert found entry %d\n",i);
       break;
     }
     else{
@@ -305,40 +290,18 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
     }
   } while (i != clock_hand);
 
-  if (get_valid_bit(i)){
-    write_entry_to_mmu(i);
-  }
+  if (get_valid_bit(i)) write_entry_to_mmu(i);
 
   set_valid_bit(i, TRUE);
-  if (0x99958 == new_vpage) {
-    print_table();
-    SAY1("index is: %x\n", i);
-  } 
   set_vpage(i, new_vpage);
-  if (0x99958 == new_vpage) {
-    print_table();
-    SAY1("new_vpage is: %x\n", new_vpage);
-  } 
   set_pageframe(i, new_pframe);
-  if (0x99958 == new_vpage) {
-    print_table();
-    SAY1("new_pframe is: %x\n", new_pframe);
-  } 
   set_m_bit(i, new_mbit);
-  if (0x99958 == new_vpage) {
-    print_table();
-    SAY1("new_mbit is: %x\n", new_mbit);
-  } 
   set_r_bit(i, new_rbit);
-  if (0x99958 == new_vpage) {
-    print_table();
-    SAY1("new_rbit is: %x\n", new_rbit);
-  } 
 
   clock_hand = (i + 1) % num_tlb_entries;
 }
 
-//Writes the M  & R bits in the each valid TLB
+//Writes the M & R bits in the each valid TLB
 //entry back to the M & R MMU bitmaps.
 void tlb_write_back()
 {
@@ -347,4 +310,3 @@ void tlb_write_back()
     if (get_valid_bit(i)) write_entry_to_mmu(i);
   }
 }
-
