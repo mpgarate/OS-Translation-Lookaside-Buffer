@@ -3,1291 +3,197 @@ Number of pages: 1048576
 Number of page frames: 1024
 Number of TLB entries: 32
 clearing all!!!
-tlb_miss on vpage 0
-tlb_miss on vpage 33951
-tlb_miss on vpage 6227a
-tlb_miss on vpage 3aa06
-tlb_miss on vpage 9112
-tlb_miss on vpage df2c4
-tlb_miss on vpage 4c070
-tlb_miss on vpage 58601
-tlb_miss on vpage c4308
-tlb_miss on vpage 20f77
-tlb_miss on vpage 2dd7d
-tlb_miss on vpage 95b28
-tlb_miss on vpage de625
-tlb_miss on vpage aa517
-tlb_miss on vpage 7fb69
-tlb_miss on vpage 42027
-tlb_miss on vpage 753e
-tlb_miss on vpage 77f9
-tlb_miss on vpage 46346
-tlb_miss on vpage bf402
-tlb_miss on vpage c98b6
-tlb_miss on vpage 999d4
-tlb_miss on vpage ab951
-tlb_miss on vpage ef2c0
-tlb_miss on vpage b36e5
-tlb_miss on vpage aa716
-tlb_miss on vpage cb6f4
-tlb_miss on vpage 54d50
-tlb_miss on vpage 4a5ad
-tlb_miss on vpage bd39c
-tlb_miss on vpage aff59
-tlb_miss on vpage d2c72
-tlb_miss on vpage 1f661
-tlb_miss on vpage d38d8
-tlb_miss on vpage fb850
-tlb_miss on vpage 1241e
-tlb_miss on vpage 8bb14
-tlb_miss on vpage 9af17
-tlb_miss on vpage 461b8
-tlb_miss on vpage cf5b2
-tlb_miss on vpage e751a
-tlb_miss on vpage 1ffa1
-tlb_miss on vpage 7f334
-tlb_miss on vpage 417d5
-tlb_miss on vpage cf064
-tlb_miss on vpage b5ca5
-tlb_miss on vpage 2f67e
-tlb_miss on vpage aa267
-tlb_miss on vpage b0d02
-tlb_miss on vpage 8e71a
-tlb_miss on vpage 50050
-tlb_miss on vpage 9ce13
-tlb_miss on vpage 3509f
-tlb_miss on vpage 1608
-tlb_miss on vpage faf86
-tlb_miss on vpage 6931
-tlb_miss on vpage ef8d2
-tlb_miss on vpage dd250
-tlb_miss on vpage 9dc6
-tlb_miss on vpage 3e7f2
-tlb_miss on vpage 3165c
-tlb_miss on vpage abf76
-tlb_miss on vpage f0093
-tlb_miss on vpage efad3
-tlb_miss on vpage 56114
-tlb_miss on vpage 346e9
-tlb_miss on vpage 9937d
-tlb_miss on vpage c42bf
-tlb_miss on vpage 64bec
-tlb_miss on vpage 89c
-tlb_miss on vpage 928e9
-tlb_miss on vpage 7cbff
-tlb_miss on vpage 3db4f
-tlb_miss on vpage 2e08c
-tlb_miss on vpage 623da
-tlb_miss on vpage 3c3cc
-tlb_miss on vpage 88d09
-tlb_miss on vpage b4f78
-tlb_miss on vpage b5599
-tlb_miss on vpage c754f
-tlb_miss on vpage 640c2
-tlb_miss on vpage 63fcb
-tlb_miss on vpage 24e01
-tlb_miss on vpage 6387f
-tlb_miss on vpage 9bd8f
-tlb_miss on vpage f3a7a
-tlb_miss on vpage 82977
-tlb_miss on vpage 72cf0
-tlb_miss on vpage 7e7a5
-tlb_miss on vpage 9927c
-tlb_miss on vpage f2ddb
-tlb_miss on vpage 31167
-tlb_miss on vpage b371e
-tlb_miss on vpage 48fe0
-tlb_miss on vpage c2dd6
-tlb_miss on vpage a3310
-tlb_miss on vpage 472a5
-tlb_miss on vpage 4658
-tlb_miss on vpage e57f7
-tlb_miss on vpage 8bbcc
-tlb_miss on vpage 2d7f6
-tlb_miss on vpage 2962c
-tlb_miss on vpage af2a9
-tlb_miss on vpage 26ca8
-tlb_miss on vpage 992f5
-tlb_miss on vpage 4623d
-tlb_miss on vpage 2a1a0
-tlb_miss on vpage 6d6db
-tlb_miss on vpage 9db4c
-tlb_miss on vpage c57cf
-tlb_miss on vpage 2d5b1
-tlb_miss on vpage 51db1
-tlb_miss on vpage e7741
-tlb_miss on vpage 2dddd
-tlb_miss on vpage d04db
-tlb_miss on vpage e07e9
-tlb_miss on vpage 25615
-tlb_miss on vpage 503f9
-tlb_miss on vpage e1658
-tlb_miss on vpage 73b2c
-tlb_miss on vpage c9503
-tlb_miss on vpage 673fa
-tlb_miss on vpage b5951
-tlb_miss on vpage edbdf
-tlb_miss on vpage b6868
-tlb_miss on vpage 917d9
-tlb_miss on vpage 82506
-tlb_miss on vpage a77eb
-tlb_miss on vpage 9023a
-tlb_miss on vpage 6d729
-tlb_miss on vpage c46f2
-tlb_miss on vpage 227b0
-tlb_miss on vpage 30053
-tlb_miss on vpage 3203
-tlb_miss on vpage 55b83
-tlb_miss on vpage ef67f
-tlb_miss on vpage 88542
-tlb_miss on vpage 7d8d4
-tlb_miss on vpage 4a20a
-tlb_miss on vpage a0470
-tlb_miss on vpage fdf57
-tlb_miss on vpage a9dac
-tlb_miss on vpage 7bc20
-tlb_miss on vpage 55caa
-tlb_miss on vpage e9c65
-tlb_miss on vpage 4563f
-tlb_miss on vpage 49bab
-tlb_miss on vpage 8bc0c
-tlb_miss on vpage 78f2f
-tlb_miss on vpage 8b516
-tlb_miss on vpage 338f5
-tlb_miss on vpage fea1e
-tlb_miss on vpage 72a92
-tlb_miss on vpage b9edb
-tlb_miss on vpage bac1f
-tlb_miss on vpage 68d6f
-tlb_miss on vpage f4793
-tlb_miss on vpage 3a2a9
-tlb_miss on vpage e3af2
-tlb_miss on vpage 7a0a4
-tlb_miss on vpage 93260
-tlb_miss on vpage 53222
-tlb_miss on vpage 4eda0
-tlb_miss on vpage ab7d2
-tlb_miss on vpage 2cf46
-tlb_miss on vpage afa04
-tlb_miss on vpage 2ce10
-tlb_miss on vpage b909
-tlb_miss on vpage 71ad6
-tlb_miss on vpage 5bba3
-tlb_miss on vpage ab41d
-tlb_miss on vpage 237a3
-tlb_miss on vpage 79ed1
-tlb_miss on vpage 12e6
-tlb_miss on vpage 47c7
-tlb_miss on vpage 4d9ca
-tlb_miss on vpage c26b4
-tlb_miss on vpage 30c6d
-tlb_miss on vpage c4989
-tlb_miss on vpage d0099
-tlb_miss on vpage a3ff
-tlb_miss on vpage 1b33f
-tlb_miss on vpage e639a
-tlb_miss on vpage 8b625
-tlb_miss on vpage b4c48
-tlb_miss on vpage 5ad09
-tlb_miss on vpage 5cd08
-tlb_miss on vpage d057
-tlb_miss on vpage 6e3c7
-tlb_miss on vpage d44a4
-tlb_miss on vpage 528ce
-tlb_miss on vpage 8d449
-tlb_miss on vpage ee3e3
-tlb_miss on vpage 99958
 ---------------   PRINTING TABLE   ------------------
 -----------------------------------------------------
 PID --- VALID --- VP_NO --- MOD --- REF --- PF_NO ---
-0        1          ee3e3       0         1         ee3e3          
-1        1          53222       0         1         53222          
-2        1          4eda0       0         1         4eda0          
-3        1          ab7d2       0         1         ab7d2          
-4        1          2cf46       0         1         2cf46          
-5        1          afa04       0         1         afa04          
-6        1          2ce10       0         1         2ce10          
-7        1          b909       0         1         b909          
-8        1          71ad6       1         1         71ad6          
-9        1          5bba3       0         1         5bba3          
-a        1          ab41d       0         1         ab41d          
-b        1          237a3       0         1         237a3          
-c        1          79ed1       0         1         79ed1          
-d        1          12e6       0         1         12e6          
-e        1          47c7       0         1         47c7          
-f        1          4d9ca       0         1         4d9ca          
-10        1          c26b4       0         1         c26b4          
-11        1          30c6d       0         1         30c6d          
-12        1          c4989       0         1         c4989          
-13        1          d0099       0         1         d0099          
-14        1          a3ff       0         1         a3ff          
-15        1          1b33f       0         1         1b33f          
-16        1          e639a       0         1         e639a          
-17        1          8b625       0         1         8b625          
-18        1          b4c48       0         1         b4c48          
-19        1          5ad09       0         1         5ad09          
-1a        1          5cd08       0         1         5cd08          
-1b        1          d057       0         1         d057          
-1c        1          6e3c7       0         1         6e3c7          
-1d        1          d44a4       0         1         d44a4          
-1e        1          528ce       1         1         528ce          
-1f        1          8d449       0         1         8d449          
+0        1          ee3e3       1         1         c0          
+1        1          53222       1         1         a1          
+2        1          4eda0       0         1         a2          
+3        1          ab7d2       0         1         a3          
+4        1          2cf46       0         1         a4          
+5        1          afa04       1         1         a5          
+6        1          2ce10       1         1         a6          
+7        1          b909       1         1         a7          
+8        1          71ad6       1         1         a8          
+9        1          5bba3       1         1         a9          
+a        1          ab41d       1         1         aa          
+b        1          237a3       1         1         ab          
+c        1          79ed1       1         1         ac          
+d        1          12e6       0         1         ad          
+e        1          47c7       1         1         ae          
+f        1          4d9ca       0         1         af          
+10        1          c26b4       1         1         b0          
+11        1          30c6d       0         1         b1          
+12        1          c4989       1         1         b2          
+13        1          d0099       1         1         b3          
+14        1          a3ff       1         1         b4          
+15        1          1b33f       0         1         b5          
+16        1          e639a       0         1         b6          
+17        1          8b625       1         1         b7          
+18        1          b4c48       1         1         b8          
+19        1          5ad09       1         1         b9          
+1a        1          5cd08       1         1         ba          
+1b        1          d057       1         1         bb          
+1c        1          6e3c7       1         1         bc          
+1d        1          d44a4       1         1         bd          
+1e        1          528ce       1         1         be          
+1f        1          8d449       0         1         bf          
 -----------------------------------------------------
-tlb_miss on vpage feb2f
-tlb_miss on vpage d9763
-tlb_miss on vpage 423bf
-tlb_miss on vpage 71444
-tlb_miss on vpage c5eb6
-tlb_miss on vpage 1338c
-tlb_miss on vpage bd8a1
-tlb_miss on vpage 6c8b6
-tlb_miss on vpage 2249a
-tlb_miss on vpage b0ae3
-tlb_miss on vpage f0928
-tlb_miss on vpage 1f6e3
-tlb_miss on vpage 9cba9
-tlb_miss on vpage c3014
-tlb_miss on vpage 893f3
-tlb_miss on vpage 713e6
-tlb_miss on vpage 2e784
-tlb_miss on vpage ff6da
-tlb_miss on vpage 42b7f
-tlb_miss on vpage 4b6c9
-tlb_miss on vpage cad
-tlb_miss on vpage 8d6e2
-tlb_miss on vpage 5894
-tlb_miss on vpage 6d40d
-tlb_miss on vpage 2b107
-tlb_miss on vpage 66c8
-tlb_miss on vpage deaef
-tlb_miss on vpage d46a9
-tlb_miss on vpage 6e891
-tlb_miss on vpage 77594
-tlb_miss on vpage cfcf4
-tlb_miss on vpage 3b1fc
-tlb_miss on vpage e1539
-tlb_miss on vpage 94942
-tlb_miss on vpage 282f4
-tlb_miss on vpage f2067
-tlb_miss on vpage 9d556
-tlb_miss on vpage 46175
-tlb_miss on vpage 8a22f
-tlb_miss on vpage 68c21
-tlb_miss on vpage da7e4
-tlb_miss on vpage b3a9e
-tlb_miss on vpage 53d61
-tlb_miss on vpage 7218
-tlb_miss on vpage 5ffa8
-tlb_miss on vpage 37b35
-tlb_miss on vpage 82990
-tlb_miss on vpage 8ab75
-tlb_miss on vpage 3bb84
-tlb_miss on vpage 3463e
-tlb_miss on vpage 77140
-tlb_miss on vpage afa5a
-tlb_miss on vpage a9ecc
-tlb_miss on vpage 3361d
-tlb_miss on vpage 2c46c
-tlb_miss on vpage 5250a
-tlb_miss on vpage 9ec7b
-tlb_miss on vpage e8f2b
-tlb_miss on vpage e6140
-tlb_miss on vpage d9b96
-tlb_miss on vpage e8cc2
-tlb_miss on vpage 26da4
-tlb_miss on vpage e6b39
-tlb_miss on vpage a72c1
-tlb_miss on vpage f08d1
-tlb_miss on vpage b7243
-tlb_miss on vpage 15d60
-tlb_miss on vpage 2b9d0
-tlb_miss on vpage 1f1c3
-tlb_miss on vpage 34b57
-tlb_miss on vpage 1b77c
-tlb_miss on vpage ebc59
-tlb_miss on vpage 36d96
-tlb_miss on vpage 76813
-tlb_miss on vpage bc9d2
-tlb_miss on vpage aae89
-tlb_miss on vpage 122e6
-tlb_miss on vpage d50e2
-tlb_miss on vpage cfc25
-tlb_miss on vpage 6f3d3
-tlb_miss on vpage f26bd
-tlb_miss on vpage 8f9a4
-tlb_miss on vpage b67f8
-tlb_miss on vpage cf351
-tlb_miss on vpage 3a08d
-tlb_miss on vpage 5fd5f
-tlb_miss on vpage a4982
-tlb_miss on vpage b8bdd
-tlb_miss on vpage 9783a
-tlb_miss on vpage 37fce
-tlb_miss on vpage 48a1
-tlb_miss on vpage 4005c
-tlb_miss on vpage d7235
-tlb_miss on vpage 68180
-tlb_miss on vpage bec4c
-tlb_miss on vpage 661f0
-tlb_miss on vpage 8d9e8
-tlb_miss on vpage 5385b
-tlb_miss on vpage c3382
-tlb_miss on vpage 1212d
-tlb_miss on vpage b5d17
-tlb_miss on vpage bbccf
-tlb_miss on vpage 8750d
-tlb_miss on vpage fdf4d
-tlb_miss on vpage 35944
-tlb_miss on vpage 370d6
-tlb_miss on vpage 6353f
-tlb_miss on vpage 2c91a
-tlb_miss on vpage 47297
-tlb_miss on vpage b8a0c
-tlb_miss on vpage 79964
-tlb_miss on vpage be392
-tlb_miss on vpage 7f6bf
-tlb_miss on vpage 74a7c
-tlb_miss on vpage 89f16
-tlb_miss on vpage 9f166
-tlb_miss on vpage bd928
-tlb_miss on vpage 8d8df
-tlb_miss on vpage 58659
-tlb_miss on vpage 19cf0
-tlb_miss on vpage 951b3
-tlb_miss on vpage 33795
-tlb_miss on vpage d9869
-tlb_miss on vpage 88162
-tlb_miss on vpage ac9e4
-tlb_miss on vpage 7b8b
-tlb_miss on vpage 445d9
-tlb_miss on vpage c915f
-tlb_miss on vpage 78253
-tlb_miss on vpage b8689
-tlb_miss on vpage e8e94
-tlb_miss on vpage 73dfa
-tlb_miss on vpage dfb00
-tlb_miss on vpage e72b3
-tlb_miss on vpage 72bba
-tlb_miss on vpage 7473c
-tlb_miss on vpage e9653
-tlb_miss on vpage 14417
-tlb_miss on vpage 865ce
-tlb_miss on vpage 68866
-tlb_miss on vpage 1282b
-tlb_miss on vpage e1941
-tlb_miss on vpage 70580
-tlb_miss on vpage 89765
-tlb_miss on vpage 9c4d3
-tlb_miss on vpage 6360e
-tlb_miss on vpage cba35
-tlb_miss on vpage 2eb7b
-tlb_miss on vpage b8120
-tlb_miss on vpage 59301
-tlb_miss on vpage 19f98
-tlb_miss on vpage fae7d
-tlb_miss on vpage 65fcb
-tlb_miss on vpage 65f1c
-tlb_miss on vpage a7a13
-tlb_miss on vpage 26095
-tlb_miss on vpage 71961
-tlb_miss on vpage 28f0f
-tlb_miss on vpage b231e
-tlb_miss on vpage 8d3d1
-tlb_miss on vpage edfa3
-tlb_miss on vpage def5f
-tlb_miss on vpage 1a804
-tlb_miss on vpage 7185
-tlb_miss on vpage dc9de
-tlb_miss on vpage ff235
-tlb_miss on vpage 47feb
-tlb_miss on vpage 94c4b
-tlb_miss on vpage 6d366
-tlb_miss on vpage cae3c
-tlb_miss on vpage 7433a
-tlb_miss on vpage b1df6
-tlb_miss on vpage dff60
-tlb_miss on vpage 37f4b
-tlb_miss on vpage 2aecc
-tlb_miss on vpage 28b26
-tlb_miss on vpage ba86f
-tlb_miss on vpage 1c39d
-tlb_miss on vpage f2c3c
-tlb_miss on vpage 4c469
-tlb_miss on vpage 1ef96
-tlb_miss on vpage 5b23b
-tlb_miss on vpage 93d37
-tlb_miss on vpage f77b4
-tlb_miss on vpage 7591
-tlb_miss on vpage 7ef68
-tlb_miss on vpage d910c
-tlb_miss on vpage e70aa
-tlb_miss on vpage 436a7
-tlb_miss on vpage efd9f
-tlb_miss on vpage 630d5
-tlb_miss on vpage 632db
-tlb_miss on vpage 7a169
-tlb_miss on vpage 805b4
-tlb_miss on vpage 28efc
-tlb_miss on vpage c6b3d
-tlb_miss on vpage 519ae
-tlb_miss on vpage 19746
-tlb_miss on vpage 279dd
-tlb_miss on vpage d1d45
-tlb_miss on vpage 4947
-tlb_miss on vpage af916
-tlb_miss on vpage eddd8
-tlb_miss on vpage fe90a
-tlb_miss on vpage 2a755
-tlb_miss on vpage d3a73
-tlb_miss on vpage de811
-tlb_miss on vpage 5b1e2
-tlb_miss on vpage 5ef67
-tlb_miss on vpage 20b6a
-tlb_miss on vpage 9a386
-tlb_miss on vpage 86418
-tlb_miss on vpage bb713
-tlb_miss on vpage 81d78
-tlb_miss on vpage 4cb9e
-tlb_miss on vpage 5cd68
-tlb_miss on vpage 2ed80
-tlb_miss on vpage dbc0f
-tlb_miss on vpage 3b4c9
-tlb_miss on vpage 85
-tlb_miss on vpage 20598
-tlb_miss on vpage 48294
-tlb_miss on vpage 577db
-tlb_miss on vpage ea1f3
-tlb_miss on vpage 166c3
-tlb_miss on vpage f0894
-tlb_miss on vpage 49f08
-tlb_miss on vpage 480bd
-tlb_miss on vpage 99851
-tlb_miss on vpage 38fc8
-tlb_miss on vpage 70826
-tlb_miss on vpage f84a7
-tlb_miss on vpage 4aa5f
-tlb_miss on vpage cf224
-tlb_miss on vpage 62e4b
-tlb_miss on vpage 58836
-tlb_miss on vpage 8580a
-tlb_miss on vpage 46db4
-tlb_miss on vpage 7b2a
-tlb_miss on vpage 73254
-tlb_miss on vpage 9a808
-tlb_miss on vpage 97718
-tlb_miss on vpage bdff
-tlb_miss on vpage 53361
-tlb_miss on vpage db8d1
-tlb_miss on vpage 4ba51
-tlb_miss on vpage cd89b
-tlb_miss on vpage e48d2
-tlb_miss on vpage 6e34e
-tlb_miss on vpage 75b72
-tlb_miss on vpage fe52a
-tlb_miss on vpage 4d69d
-tlb_miss on vpage 1ee09
-tlb_miss on vpage cfccb
-tlb_miss on vpage 4c993
-tlb_miss on vpage 67905
-tlb_miss on vpage 504f3
-tlb_miss on vpage 8d73
-tlb_miss on vpage 11bc6
-tlb_miss on vpage a412
-tlb_miss on vpage d026d
-tlb_miss on vpage 2dfe0
-tlb_miss on vpage b172f
-tlb_miss on vpage 9b2db
-tlb_miss on vpage 5f21c
-tlb_miss on vpage 62417
-tlb_miss on vpage 9247e
-tlb_miss on vpage a4d03
-tlb_miss on vpage 322ca
-tlb_miss on vpage 6fcc5
-tlb_miss on vpage 4f670
-tlb_miss on vpage f3cbc
-tlb_miss on vpage f819d
-tlb_miss on vpage c075e
-tlb_miss on vpage 293b4
-tlb_miss on vpage 3413d
-tlb_miss on vpage 1bb35
-tlb_miss on vpage fc798
-tlb_miss on vpage 4b6e6
-tlb_miss on vpage 57199
-tlb_miss on vpage c0662
-tlb_miss on vpage b4f
-tlb_miss on vpage d781b
-tlb_miss on vpage 5cf28
-tlb_miss on vpage 9a83
-tlb_miss on vpage ed7c5
-tlb_miss on vpage 59c61
-tlb_miss on vpage 32ed5
-tlb_miss on vpage ecf8
-tlb_miss on vpage e5643
-tlb_miss on vpage 2b3c2
-tlb_miss on vpage eed78
-tlb_miss on vpage adf7f
-tlb_miss on vpage 15634
-tlb_miss on vpage a9061
-tlb_miss on vpage abbf0
-tlb_miss on vpage 6172f
-tlb_miss on vpage 20312
-tlb_miss on vpage 6007
-tlb_miss on vpage d9761
-tlb_miss on vpage 9d133
-tlb_miss on vpage 97dfe
-tlb_miss on vpage 9c04c
-tlb_miss on vpage e513b
-tlb_miss on vpage 1e1e2
-tlb_miss on vpage 6aec9
-tlb_miss on vpage bab07
-tlb_miss on vpage b2f4
-tlb_miss on vpage 9c266
-tlb_miss on vpage 34893
-tlb_miss on vpage 14363
-tlb_miss on vpage 9d96c
-tlb_miss on vpage 4151f
-tlb_miss on vpage 6019f
-tlb_miss on vpage 4390b
-tlb_miss on vpage a4da4
-tlb_miss on vpage 6e968
-tlb_miss on vpage f4184
-tlb_miss on vpage 3f39e
-tlb_miss on vpage 73ff3
-tlb_miss on vpage 849a
-tlb_miss on vpage fe64
-tlb_miss on vpage dfb24
-tlb_miss on vpage fa87b
-tlb_miss on vpage d342e
-tlb_miss on vpage fdc09
-tlb_miss on vpage aeeb6
-tlb_miss on vpage f7d
-tlb_miss on vpage 59a8d
-tlb_miss on vpage 46a4f
-tlb_miss on vpage 52bf9
-tlb_miss on vpage 89691
-tlb_miss on vpage 24f0c
-tlb_miss on vpage 32064
-tlb_miss on vpage 5c47b
-tlb_miss on vpage ea7cc
-tlb_miss on vpage ca0a6
-tlb_miss on vpage 30315
-tlb_miss on vpage d9de2
-tlb_miss on vpage 4687b
-tlb_miss on vpage 86b1e
-tlb_miss on vpage 405ae
-tlb_miss on vpage 64004
-tlb_miss on vpage f3fe
-tlb_miss on vpage bce91
-tlb_miss on vpage 21361
-tlb_miss on vpage 6caac
-tlb_miss on vpage f1814
-tlb_miss on vpage 48b72
-tlb_miss on vpage 84441
-tlb_miss on vpage d9757
-tlb_miss on vpage 3b26d
-tlb_miss on vpage 698ae
-tlb_miss on vpage e069
-tlb_miss on vpage 51752
-tlb_miss on vpage 70346
-tlb_miss on vpage d69ed
-tlb_miss on vpage bc0e5
-tlb_miss on vpage dc3f3
-tlb_miss on vpage 2ad86
-tlb_miss on vpage 7690f
-tlb_miss on vpage 32a58
-tlb_miss on vpage ce7f3
-tlb_miss on vpage e23bb
-tlb_miss on vpage 6ca40
-tlb_miss on vpage 2dc81
-tlb_miss on vpage 10286
-tlb_miss on vpage 7697d
-tlb_miss on vpage 6feeb
-tlb_miss on vpage 5765d
-tlb_miss on vpage c8df0
-tlb_miss on vpage 8b89a
-tlb_miss on vpage 2a424
-tlb_miss on vpage d6615
-tlb_miss on vpage d6e49
-tlb_miss on vpage bf210
-tlb_miss on vpage 25186
-tlb_miss on vpage be2f9
-tlb_miss on vpage b702a
-tlb_miss on vpage c49e3
-tlb_miss on vpage 9982b
-tlb_miss on vpage 92302
-tlb_miss on vpage 913b6
-tlb_miss on vpage c3d68
-tlb_miss on vpage 1d15e
-tlb_miss on vpage c138a
-tlb_miss on vpage aedfe
-tlb_miss on vpage b75bb
-tlb_miss on vpage 1d5f5
-tlb_miss on vpage 9cd2f
-tlb_miss on vpage 46670
-tlb_miss on vpage bb65b
-tlb_miss on vpage 7e739
-tlb_miss on vpage 22eee
-tlb_miss on vpage 81ef0
-tlb_miss on vpage a0a30
-tlb_miss on vpage d5e73
-tlb_miss on vpage 33b6f
-tlb_miss on vpage 5c61f
-tlb_miss on vpage 729ed
-tlb_miss on vpage cc75c
-tlb_miss on vpage a7f4d
-tlb_miss on vpage 60a1e
-tlb_miss on vpage e4515
-tlb_miss on vpage b70d9
-tlb_miss on vpage 914d1
-tlb_miss on vpage a2f4e
-tlb_miss on vpage 80ec1
-tlb_miss on vpage dac49
-tlb_miss on vpage 4fda6
-tlb_miss on vpage 94ef5
-tlb_miss on vpage 37b54
-tlb_miss on vpage bf457
-tlb_miss on vpage c992c
-tlb_miss on vpage 7fd9e
-tlb_miss on vpage 89450
-tlb_miss on vpage 1099f
-tlb_miss on vpage 9d40e
-tlb_miss on vpage 65e7e
-tlb_miss on vpage d956e
-tlb_miss on vpage aef7e
-tlb_miss on vpage 2c181
-tlb_miss on vpage 6c13d
-tlb_miss on vpage adee4
-tlb_miss on vpage 414bc
-tlb_miss on vpage cfdab
-tlb_miss on vpage b47a8
-tlb_miss on vpage 8d81
-tlb_miss on vpage 4deed
-tlb_miss on vpage 107ad
-tlb_miss on vpage 63ee2
-tlb_miss on vpage 39a70
-tlb_miss on vpage 1d6ae
-tlb_miss on vpage 44c63
-tlb_miss on vpage 66abe
-tlb_miss on vpage 8949d
-tlb_miss on vpage b25e4
-tlb_miss on vpage 63b40
-tlb_miss on vpage 9b326
-tlb_miss on vpage e6346
-tlb_miss on vpage a30df
-tlb_miss on vpage bee3
-tlb_miss on vpage caa27
-tlb_miss on vpage 4491d
-tlb_miss on vpage 9a759
-tlb_miss on vpage 9d4cc
-tlb_miss on vpage 1aea2
-tlb_miss on vpage b6698
-tlb_miss on vpage 1d33f
-tlb_miss on vpage 5dbe4
-tlb_miss on vpage 1f742
-tlb_miss on vpage 68094
-tlb_miss on vpage 8b368
-tlb_miss on vpage debf
-tlb_miss on vpage b5dba
-tlb_miss on vpage e6535
-tlb_miss on vpage 2a17c
-tlb_miss on vpage b49d7
-tlb_miss on vpage 33453
-tlb_miss on vpage 34a39
-tlb_miss on vpage 6043a
-tlb_miss on vpage ff8a3
-tlb_miss on vpage 99558
-tlb_miss on vpage c0b18
-tlb_miss on vpage cf5e3
-tlb_miss on vpage a436a
-tlb_miss on vpage 315c0
-tlb_miss on vpage 5bda
-tlb_miss on vpage 732a8
-tlb_miss on vpage 385e9
-tlb_miss on vpage 41560
-tlb_miss on vpage 10111
-tlb_miss on vpage 6daee
-tlb_miss on vpage ede74
-tlb_miss on vpage 70142
-tlb_miss on vpage 71728
-tlb_miss on vpage cac29
-tlb_miss on vpage 7be99
-tlb_miss on vpage cc460
-tlb_miss on vpage fb629
-tlb_miss on vpage 46b5
-tlb_miss on vpage f8ee9
-tlb_miss on vpage be584
-tlb_miss on vpage 6d315
-tlb_miss on vpage 9f3e4
-tlb_miss on vpage 72466
-tlb_miss on vpage 8f7aa
-tlb_miss on vpage 944e9
-tlb_miss on vpage bfc47
-tlb_miss on vpage bcf07
-tlb_miss on vpage d5b00
-tlb_miss on vpage 7deef
-tlb_miss on vpage 22205
-tlb_miss on vpage dc397
-tlb_miss on vpage acd08
-tlb_miss on vpage b0e57
-tlb_miss on vpage 8b78b
-tlb_miss on vpage 388de
-tlb_miss on vpage 52009
-tlb_miss on vpage 54034
-tlb_miss on vpage 80334
-tlb_miss on vpage 4ff72
-tlb_miss on vpage f588c
-tlb_miss on vpage 85b36
-tlb_miss on vpage 407bd
-tlb_miss on vpage 2a5d7
-tlb_miss on vpage 9abb2
-tlb_miss on vpage 53de7
-tlb_miss on vpage 469d6
-tlb_miss on vpage 60d37
-tlb_miss on vpage 92844
-tlb_miss on vpage 884eb
-tlb_miss on vpage cd22
-tlb_miss on vpage 6e910
-tlb_miss on vpage 86222
-tlb_miss on vpage 8f0ae
-tlb_miss on vpage 8452e
-tlb_miss on vpage 7ba9f
-tlb_miss on vpage 6821e
-tlb_miss on vpage 75391
-tlb_miss on vpage 40cf5
-tlb_miss on vpage 3dc3c
-tlb_miss on vpage 85569
-tlb_miss on vpage 37172
-tlb_miss on vpage b032d
-tlb_miss on vpage cce9a
-tlb_miss on vpage 7e8b4
-tlb_miss on vpage 7049a
-tlb_miss on vpage 62966
-tlb_miss on vpage 7a96
-tlb_miss on vpage fa416
-tlb_miss on vpage 8b83a
-tlb_miss on vpage 406d5
-tlb_miss on vpage e0a75
-tlb_miss on vpage cc90
-tlb_miss on vpage ca04c
-tlb_miss on vpage d2b38
-tlb_miss on vpage 4e55a
-tlb_miss on vpage 70e46
-tlb_miss on vpage fee73
-tlb_miss on vpage c8120
-tlb_miss on vpage 101c7
-tlb_miss on vpage 19782
-tlb_miss on vpage 84080
-tlb_miss on vpage c41cf
-tlb_miss on vpage b1407
-tlb_miss on vpage 5c7d1
-tlb_miss on vpage 1337f
-tlb_miss on vpage 7e5fe
-tlb_miss on vpage 13e8b
-tlb_miss on vpage 84d87
-tlb_miss on vpage ce30c
-tlb_miss on vpage 59b81
-tlb_miss on vpage d5bef
-tlb_miss on vpage c82ba
-tlb_miss on vpage edbed
-tlb_miss on vpage 6c84e
-tlb_miss on vpage 2527a
-tlb_miss on vpage 3fd7a
-tlb_miss on vpage 687
-tlb_miss on vpage 31d7f
-tlb_miss on vpage a1d84
-tlb_miss on vpage e4305
-tlb_miss on vpage 3a350
-tlb_miss on vpage cd67c
-tlb_miss on vpage 6d2d0
-tlb_miss on vpage 7faee
-tlb_miss on vpage 4caad
-tlb_miss on vpage 99491
-tlb_miss on vpage 90e49
-tlb_miss on vpage c6a1d
-tlb_miss on vpage 52e74
-tlb_miss on vpage 51b6d
-tlb_miss on vpage ebea5
-tlb_miss on vpage e99e1
-tlb_miss on vpage 89af8
-tlb_miss on vpage 58de1
-tlb_miss on vpage 899dc
-tlb_miss on vpage 427d9
-tlb_miss on vpage f44bc
-tlb_miss on vpage de231
-tlb_miss on vpage a4913
-tlb_miss on vpage c4fa5
-tlb_miss on vpage f0307
-tlb_miss on vpage c226c
-tlb_miss on vpage a26c4
-tlb_miss on vpage 8202b
-tlb_miss on vpage 6af01
-tlb_miss on vpage 37045
-tlb_miss on vpage 7e150
-tlb_miss on vpage e2bd7
-tlb_miss on vpage 6f154
-tlb_miss on vpage ef74a
-tlb_miss on vpage df11a
-tlb_miss on vpage 9176c
-tlb_miss on vpage 950c5
-tlb_miss on vpage bfd0b
-tlb_miss on vpage 9d44
-tlb_miss on vpage 82d
-tlb_miss on vpage 7caa
-tlb_miss on vpage d80de
-tlb_miss on vpage c9ac5
-tlb_miss on vpage 9ccba
-tlb_miss on vpage c0e53
-tlb_miss on vpage f9f0f
-tlb_miss on vpage 97f6a
-tlb_miss on vpage fc2e3
-tlb_miss on vpage aca05
-tlb_miss on vpage c1bfb
-tlb_miss on vpage ed11b
-tlb_miss on vpage 7ab5a
-tlb_miss on vpage bbff5
-tlb_miss on vpage fbd48
-tlb_miss on vpage b1f20
-tlb_miss on vpage 9c05e
-tlb_miss on vpage 832bc
-tlb_miss on vpage b41d9
-tlb_miss on vpage 42a89
-tlb_miss on vpage a27d8
-tlb_miss on vpage a1867
-tlb_miss on vpage 30053
-tlb_miss on vpage 8ce0
-tlb_miss on vpage 55903
-tlb_miss on vpage 58da9
-tlb_miss on vpage 970e5
-tlb_miss on vpage b892c
-tlb_miss on vpage df081
-tlb_miss on vpage 800e9
-tlb_miss on vpage 714c7
-tlb_miss on vpage f18bd
-tlb_miss on vpage c5c9f
-tlb_miss on vpage a6920
-tlb_miss on vpage b8527
-tlb_miss on vpage 349e7
-tlb_miss on vpage dbaee
-tlb_miss on vpage 175
-tlb_miss on vpage c25cc
-tlb_miss on vpage b06b1
-tlb_miss on vpage d693c
-tlb_miss on vpage c5c29
-tlb_miss on vpage 2434a
-tlb_miss on vpage 9f4c7
-tlb_miss on vpage bf948
-tlb_miss on vpage be324
-tlb_miss on vpage b213b
-tlb_miss on vpage 21797
-tlb_miss on vpage c3ace
-tlb_miss on vpage 90279
-tlb_miss on vpage 3db91
-tlb_miss on vpage d3ab
-tlb_miss on vpage 4e61e
-tlb_miss on vpage 4686c
-tlb_miss on vpage 896ee
-tlb_miss on vpage 8b54c
-tlb_miss on vpage fc66c
-tlb_miss on vpage 55c37
-tlb_miss on vpage fa67b
-tlb_miss on vpage e1248
-tlb_miss on vpage 22355
-tlb_miss on vpage f0393
-tlb_miss on vpage b6745
-tlb_miss on vpage e03ee
-tlb_miss on vpage 86905
-tlb_miss on vpage 68678
-tlb_miss on vpage e9e62
-tlb_miss on vpage 346dd
-tlb_miss on vpage fb82d
-tlb_miss on vpage f1cbb
-tlb_miss on vpage 8f2dd
-tlb_miss on vpage d8892
-tlb_miss on vpage 23765
-tlb_miss on vpage d9361
-tlb_miss on vpage 7ee6b
-tlb_miss on vpage dc6dc
-tlb_miss on vpage 510ea
-tlb_miss on vpage 4c67
-tlb_miss on vpage 9f5d9
-tlb_miss on vpage 444f5
-tlb_miss on vpage 3e66b
-tlb_miss on vpage ef63c
-tlb_miss on vpage 7b18a
-tlb_miss on vpage 97a3
-tlb_miss on vpage 178b4
-tlb_miss on vpage dc2c1
-tlb_miss on vpage 3fa87
-tlb_miss on vpage df918
-tlb_miss on vpage 6d4fe
-tlb_miss on vpage 3c48f
-tlb_miss on vpage cd785
-tlb_miss on vpage c1c45
-tlb_miss on vpage fb9ca
-tlb_miss on vpage f849d
-tlb_miss on vpage 1c24b
-tlb_miss on vpage 9a7b
-tlb_miss on vpage 9d98c
-tlb_miss on vpage 2b6d9
-tlb_miss on vpage 9f352
-tlb_miss on vpage ef8e
-tlb_miss on vpage 7b128
-tlb_miss on vpage 291d8
-tlb_miss on vpage 50d4
-tlb_miss on vpage cb466
-tlb_miss on vpage 9f31b
-tlb_miss on vpage 5526e
-tlb_miss on vpage 552a6
-tlb_miss on vpage 2f492
-tlb_miss on vpage d9a32
-tlb_miss on vpage 49a01
-tlb_miss on vpage 62674
-tlb_miss on vpage ff976
-tlb_miss on vpage dedbc
-tlb_miss on vpage 804ec
-tlb_miss on vpage 43137
-tlb_miss on vpage f7bbf
-tlb_miss on vpage 47209
-tlb_miss on vpage 44918
-tlb_miss on vpage 3add4
-tlb_miss on vpage 9d164
-tlb_miss on vpage 64ca1
-tlb_miss on vpage 95653
-tlb_miss on vpage 7636e
-tlb_miss on vpage 7f21a
-tlb_miss on vpage 6f697
-tlb_miss on vpage e5f6e
-tlb_miss on vpage 4fd73
-tlb_miss on vpage 64be2
-tlb_miss on vpage b94ab
-tlb_miss on vpage 54484
-tlb_miss on vpage 84ee9
-tlb_miss on vpage 65955
-tlb_miss on vpage f4e3b
-tlb_miss on vpage 98c98
-tlb_miss on vpage e5a
-tlb_miss on vpage d0a81
-tlb_miss on vpage fbb6
-tlb_miss on vpage 96d61
-tlb_miss on vpage d0bc0
-tlb_miss on vpage 99743
-tlb_miss on vpage 4c0b0
-tlb_miss on vpage 78916
-tlb_miss on vpage 1d8ed
-tlb_miss on vpage b8d4f
-tlb_miss on vpage 4b3fd
-tlb_miss on vpage 65efa
-tlb_miss on vpage b514e
-tlb_miss on vpage d5882
-tlb_miss on vpage e07ba
-tlb_miss on vpage 6f179
-tlb_miss on vpage f2c8b
-tlb_miss on vpage 4cbfe
-tlb_miss on vpage 8d53b
-tlb_miss on vpage 2a544
-tlb_miss on vpage 115f5
-tlb_miss on vpage 5ccb4
-tlb_miss on vpage 642bd
-tlb_miss on vpage 47057
-tlb_miss on vpage 564ec
-tlb_miss on vpage 69b56
-tlb_miss on vpage 6090e
-tlb_miss on vpage 2803b
-tlb_miss on vpage db397
-tlb_miss on vpage 77929
-tlb_miss on vpage 2996c
-tlb_miss on vpage 6990d
-tlb_miss on vpage a389f
-tlb_miss on vpage 1173f
-tlb_miss on vpage 8eaa
-tlb_miss on vpage c534e
-tlb_miss on vpage 950e5
-tlb_miss on vpage fdef0
-tlb_miss on vpage 331b4
-tlb_miss on vpage be71
-tlb_miss on vpage 4a9a9
-tlb_miss on vpage 611c3
-tlb_miss on vpage 63bb3
-tlb_miss on vpage ba2ce
-tlb_miss on vpage 2806c
-tlb_miss on vpage c9a7f
-tlb_miss on vpage 877e4
-tlb_miss on vpage 79196
-tlb_miss on vpage 7ff4a
-tlb_miss on vpage ea2a1
-tlb_miss on vpage cbe40
-tlb_miss on vpage 8a683
-tlb_miss on vpage 642c6
-tlb_miss on vpage dc1b6
-tlb_miss on vpage b5806
-tlb_miss on vpage 6611a
-tlb_miss on vpage 7f1
-tlb_miss on vpage f35a3
-tlb_miss on vpage b8bef
-tlb_miss on vpage ec4df
-tlb_miss on vpage a5c23
-tlb_miss on vpage ddcc5
-tlb_miss on vpage c1d47
-tlb_miss on vpage 52364
-tlb_miss on vpage 777c1
-tlb_miss on vpage 3ff2c
-tlb_miss on vpage 7d168
-tlb_miss on vpage 85667
-tlb_miss on vpage 48fe7
-tlb_miss on vpage 59dce
-tlb_miss on vpage e737d
-tlb_miss on vpage 8093a
-tlb_miss on vpage 9aa20
-tlb_miss on vpage 3faa
-tlb_miss on vpage ec9c4
-tlb_miss on vpage ab5b9
-tlb_miss on vpage 36909
-tlb_miss on vpage da34b
-tlb_miss on vpage 2b26c
-tlb_miss on vpage c3444
-tlb_miss on vpage 60fa9
-tlb_miss on vpage 85329
-tlb_miss on vpage ab234
-tlb_miss on vpage 39315
-tlb_miss on vpage d23ab
-tlb_miss on vpage ce9be
-tlb_miss on vpage 8fb06
-tlb_miss on vpage ae2de
-tlb_miss on vpage e432d
-tlb_miss on vpage f2abc
-tlb_miss on vpage 63452
-tlb_miss on vpage 472d2
-tlb_miss on vpage 61d94
-tlb_miss on vpage cf2d1
-tlb_miss on vpage 7dd9d
-tlb_miss on vpage 56bae
-tlb_miss on vpage e2cf5
-tlb_miss on vpage 73386
-tlb_miss on vpage 7fd3d
-tlb_miss on vpage 7f252
-tlb_miss on vpage 4713e
-tlb_miss on vpage d8780
-tlb_miss on vpage 3a13c
-tlb_miss on vpage 736af
-tlb_miss on vpage 7acac
-tlb_miss on vpage 94042
-tlb_miss on vpage b5f46
-tlb_miss on vpage 77f92
-tlb_miss on vpage 78b34
-tlb_miss on vpage bfc04
-tlb_miss on vpage 5a51d
-tlb_miss on vpage 8b820
-tlb_miss on vpage 3e43f
-tlb_miss on vpage 3f6d0
-tlb_miss on vpage ff29
-tlb_miss on vpage 148d6
-tlb_miss on vpage 8d817
-tlb_miss on vpage 38f6f
-tlb_miss on vpage 11eaa
-tlb_miss on vpage 342b6
-tlb_miss on vpage d3b50
-tlb_miss on vpage ce586
-tlb_miss on vpage 7c677
-tlb_miss on vpage 8323
-tlb_miss on vpage 9a01d
-tlb_miss on vpage b6643
-tlb_miss on vpage 6312e
-tlb_miss on vpage 20bb3
-tlb_miss on vpage 35011
-tlb_miss on vpage 6416b
-tlb_miss on vpage 73f6
-tlb_miss on vpage 49059
-tlb_miss on vpage 6f7c7
-tlb_miss on vpage f52e2
-tlb_miss on vpage 18c0a
-tlb_miss on vpage 47f58
-tlb_miss on vpage cd05
-tlb_miss on vpage f983e
-tlb_miss on vpage ad3e9
-tlb_miss on vpage 60cbb
-tlb_miss on vpage 6360
-tlb_miss on vpage 2fb7
-tlb_miss on vpage 6b756
-tlb_miss on vpage 4e2b4
-tlb_miss on vpage 890c2
-tlb_miss on vpage 68d81
-tlb_miss on vpage ea1f2
-tlb_miss on vpage 9a5b
-tlb_miss on vpage 2a8a0
-tlb_miss on vpage d2ff0
-tlb_miss on vpage 36586
-tlb_miss on vpage 8d0d
-tlb_miss on vpage d2fc2
-tlb_miss on vpage 4090
-tlb_miss on vpage 30b45
-tlb_miss on vpage 89eeb
-tlb_miss on vpage 1f67d
-tlb_miss on vpage 325f6
-tlb_miss on vpage abf01
-tlb_miss on vpage aa3c6
-tlb_miss on vpage 44711
-tlb_miss on vpage e3cb0
-tlb_miss on vpage 83ea4
-tlb_miss on vpage f5b37
-tlb_miss on vpage 4a1e0
-tlb_miss on vpage 1de4d
-tlb_miss on vpage 463ed
-tlb_miss on vpage 90ab0
-tlb_miss on vpage b9c5f
-tlb_miss on vpage 5918a
-tlb_miss on vpage 8970c
-tlb_miss on vpage aaee2
-tlb_miss on vpage b0b09
-tlb_miss on vpage 95ebf
-tlb_miss on vpage 8202e
-tlb_miss on vpage 9cc7d
-tlb_miss on vpage c8d37
-tlb_miss on vpage 5228b
-tlb_miss on vpage 2e9a4
-tlb_miss on vpage 2a836
-tlb_miss on vpage 9d5bc
-tlb_miss on vpage ce1b6
-tlb_miss on vpage 18651
-tlb_miss on vpage 69fee
-tlb_miss on vpage 108f
-tlb_miss on vpage a6ac5
-tlb_miss on vpage ead47
-tlb_miss on vpage d269
-tlb_miss on vpage 1413b
-tlb_miss on vpage a139c
-tlb_miss on vpage 92dbe
-tlb_miss on vpage 2d051
-tlb_miss on vpage 84be6
-tlb_miss on vpage f0c6d
-tlb_miss on vpage 1b859
-tlb_miss on vpage 3f7a0
-tlb_miss on vpage c073
-tlb_miss on vpage 4cb96
-tlb_miss on vpage 4d154
-tlb_miss on vpage bd7f9
-tlb_miss on vpage 1f34d
-tlb_miss on vpage 5c31
-tlb_miss on vpage 2065
-tlb_miss on vpage 9bc80
-tlb_miss on vpage 68071
-tlb_miss on vpage a5276
-tlb_miss on vpage d0b8a
-tlb_miss on vpage fa3e9
-tlb_miss on vpage 51c0
-tlb_miss on vpage ee6f3
-tlb_miss on vpage 11bb5
-tlb_miss on vpage a8efc
-tlb_miss on vpage 62f54
-tlb_miss on vpage 89951
-tlb_miss on vpage c3894
-tlb_miss on vpage fb361
-tlb_miss on vpage 3d4ba
-tlb_miss on vpage e1936
-tlb_miss on vpage 389a4
-tlb_miss on vpage f2384
-tlb_miss on vpage 83fe8
-tlb_miss on vpage f65da
-tlb_miss on vpage 3bfaa
-tlb_miss on vpage ee434
-tlb_miss on vpage 6a02
-tlb_miss on vpage 45173
-tlb_miss on vpage 76400
-tlb_miss on vpage d2eb8
-tlb_miss on vpage 1c4af
-tlb_miss on vpage 952bc
-tlb_miss on vpage e745
-tlb_miss on vpage 47805
-tlb_miss on vpage 89887
-tlb_miss on vpage f127a
-tlb_miss on vpage d2327
-tlb_miss on vpage d4fab
-tlb_miss on vpage 6a966
-tlb_miss on vpage 6e659
-tlb_miss on vpage 96a37
-tlb_miss on vpage 680f7
-tlb_miss on vpage 70bbb
-tlb_miss on vpage ddc46
-tlb_miss on vpage 74350
-tlb_miss on vpage e5279
-tlb_miss on vpage 499a6
-tlb_miss on vpage b9d59
-tlb_miss on vpage 80a80
-tlb_miss on vpage 23eb0
-tlb_miss on vpage 8e83a
-tlb_miss on vpage f4f3e
-tlb_miss on vpage c6bc6
-tlb_miss on vpage 376c7
-tlb_miss on vpage 1f335
-tlb_miss on vpage 6d34c
-tlb_miss on vpage 358e8
-tlb_miss on vpage e7aee
-tlb_miss on vpage 8e932
-tlb_miss on vpage 630e0
-tlb_miss on vpage c8a35
-tlb_miss on vpage 15dce
-tlb_miss on vpage c9997
-tlb_miss on vpage 392f2
-tlb_miss on vpage dc0fa
-tlb_miss on vpage 998ca
-tlb_miss on vpage 1d403
-tlb_miss on vpage b41ad
-tlb_miss on vpage 461e3
-tlb_miss on vpage 7246c
-tlb_miss on vpage 74c29
-tlb_miss on vpage e89
-tlb_miss on vpage 42665
-tlb_miss on vpage 7034c
-tlb_miss on vpage f927b
-tlb_miss on vpage ea561
-tlb_miss on vpage 941e7
-tlb_miss on vpage 3e9d1
-tlb_miss on vpage 3f1b7
-tlb_miss on vpage ae7aa
-tlb_miss on vpage a97dc
-tlb_miss on vpage e93ca
-tlb_miss on vpage a04ad
-tlb_miss on vpage 657f5
-tlb_miss on vpage 903cc
-tlb_miss on vpage c857b
-tlb_miss on vpage 4cc33
-tlb_miss on vpage 65dc9
-tlb_miss on vpage b647f
-tlb_miss on vpage 502fe
-tlb_miss on vpage 7de3b
-tlb_miss on vpage f1be5
-tlb_miss on vpage ce84e
-tlb_miss on vpage bb2ec
-tlb_miss on vpage 69920
-tlb_miss on vpage 6c988
-tlb_miss on vpage c3d3f
-tlb_miss on vpage a0645
-tlb_miss on vpage bca9c
-tlb_miss on vpage ca6a5
-tlb_miss on vpage d3ff1
-tlb_miss on vpage 9fa08
-tlb_miss on vpage 308de
-tlb_miss on vpage 11cfc
-tlb_miss on vpage 13f8
-tlb_miss on vpage a75f1
-tlb_miss on vpage 6a707
-tlb_miss on vpage ba932
-tlb_miss on vpage 79989
-tlb_miss on vpage 9c445
-tlb_miss on vpage 4ff7a
-tlb_miss on vpage 3fd0a
-tlb_miss on vpage d70ef
-tlb_miss on vpage 6eee0
-tlb_miss on vpage 8bc54
-tlb_miss on vpage 5d1a
-tlb_miss on vpage 5e112
-tlb_miss on vpage b8ba8
-tlb_miss on vpage aaafc
-tlb_miss on vpage 2f375
-tlb_miss on vpage 83e7
-tlb_miss on vpage e3b94
-tlb_miss on vpage 7161b
-tlb_miss on vpage c44f1
-tlb_miss on vpage f11c6
-tlb_miss on vpage 8d04d
-tlb_miss on vpage 5c16f
-Error:  Attempting to evict a page not in memory: 99958
+index is: 1
+---------------   PRINTING TABLE   ------------------
+-----------------------------------------------------
+PID --- VALID --- VP_NO --- MOD --- REF --- PF_NO ---
+0        1          ee3e3       1         1         c0          
+1        1          99958       1         1         a1          
+2        1          4eda0       0         1         a2          
+3        1          ab7d2       0         1         a3          
+4        1          2cf46       0         1         a4          
+5        1          afa04       1         1         a5          
+6        1          2ce10       1         1         a6          
+7        1          b909       1         1         a7          
+8        1          71ad6       1         1         a8          
+9        1          5bba3       1         1         a9          
+a        1          ab41d       1         1         aa          
+b        1          237a3       1         1         ab          
+c        1          79ed1       1         1         ac          
+d        1          12e6       0         1         ad          
+e        1          47c7       1         1         ae          
+f        1          4d9ca       0         1         af          
+10        1          c26b4       1         1         b0          
+11        1          30c6d       0         1         b1          
+12        1          c4989       1         1         b2          
+13        1          d0099       1         1         b3          
+14        1          a3ff       1         1         b4          
+15        1          1b33f       0         1         b5          
+16        1          e639a       0         1         b6          
+17        1          8b625       1         1         b7          
+18        1          b4c48       1         1         b8          
+19        1          5ad09       1         1         b9          
+1a        1          5cd08       1         1         ba          
+1b        1          d057       1         1         bb          
+1c        1          6e3c7       1         1         bc          
+1d        1          d44a4       1         1         bd          
+1e        1          528ce       1         1         be          
+1f        1          8d449       0         1         bf          
+-----------------------------------------------------
+new_vpage is: 99958
+---------------   PRINTING TABLE   ------------------
+-----------------------------------------------------
+PID --- VALID --- VP_NO --- MOD --- REF --- PF_NO ---
+0        1          ee3e3       1         1         c0          
+1        1          99958       1         1         c1          
+2        1          4eda0       0         1         a2          
+3        1          ab7d2       0         1         a3          
+4        1          2cf46       0         1         a4          
+5        1          afa04       1         1         a5          
+6        1          2ce10       1         1         a6          
+7        1          b909       1         1         a7          
+8        1          71ad6       1         1         a8          
+9        1          5bba3       1         1         a9          
+a        1          ab41d       1         1         aa          
+b        1          237a3       1         1         ab          
+c        1          79ed1       1         1         ac          
+d        1          12e6       0         1         ad          
+e        1          47c7       1         1         ae          
+f        1          4d9ca       0         1         af          
+10        1          c26b4       1         1         b0          
+11        1          30c6d       0         1         b1          
+12        1          c4989       1         1         b2          
+13        1          d0099       1         1         b3          
+14        1          a3ff       1         1         b4          
+15        1          1b33f       0         1         b5          
+16        1          e639a       0         1         b6          
+17        1          8b625       1         1         b7          
+18        1          b4c48       1         1         b8          
+19        1          5ad09       1         1         b9          
+1a        1          5cd08       1         1         ba          
+1b        1          d057       1         1         bb          
+1c        1          6e3c7       1         1         bc          
+1d        1          d44a4       1         1         bd          
+1e        1          528ce       1         1         be          
+1f        1          8d449       0         1         bf          
+-----------------------------------------------------
+new_pframe is: c1
+---------------   PRINTING TABLE   ------------------
+-----------------------------------------------------
+PID --- VALID --- VP_NO --- MOD --- REF --- PF_NO ---
+0        1          ee3e3       1         1         c0          
+1        1          99958       0         1         c1          
+2        1          4eda0       0         1         a2          
+3        1          ab7d2       0         1         a3          
+4        1          2cf46       0         1         a4          
+5        1          afa04       1         1         a5          
+6        1          2ce10       1         1         a6          
+7        1          b909       1         1         a7          
+8        1          71ad6       1         1         a8          
+9        1          5bba3       1         1         a9          
+a        1          ab41d       1         1         aa          
+b        1          237a3       1         1         ab          
+c        1          79ed1       1         1         ac          
+d        1          12e6       0         1         ad          
+e        1          47c7       1         1         ae          
+f        1          4d9ca       0         1         af          
+10        1          c26b4       1         1         b0          
+11        1          30c6d       0         1         b1          
+12        1          c4989       1         1         b2          
+13        1          d0099       1         1         b3          
+14        1          a3ff       1         1         b4          
+15        1          1b33f       0         1         b5          
+16        1          e639a       0         1         b6          
+17        1          8b625       1         1         b7          
+18        1          b4c48       1         1         b8          
+19        1          5ad09       1         1         b9          
+1a        1          5cd08       1         1         ba          
+1b        1          d057       1         1         bb          
+1c        1          6e3c7       1         1         bc          
+1d        1          d44a4       1         1         bd          
+1e        1          528ce       1         1         be          
+1f        1          8d449       0         1         bf          
+-----------------------------------------------------
+new_mbit is: 0
+---------------   PRINTING TABLE   ------------------
+-----------------------------------------------------
+PID --- VALID --- VP_NO --- MOD --- REF --- PF_NO ---
+0        1          ee3e3       1         1         c0          
+1        1          99958       0         0         c1          
+2        1          4eda0       0         1         a2          
+3        1          ab7d2       0         1         a3          
+4        1          2cf46       0         1         a4          
+5        1          afa04       1         1         a5          
+6        1          2ce10       1         1         a6          
+7        1          b909       1         1         a7          
+8        1          71ad6       1         1         a8          
+9        1          5bba3       1         1         a9          
+a        1          ab41d       1         1         aa          
+b        1          237a3       1         1         ab          
+c        1          79ed1       1         1         ac          
+d        1          12e6       0         1         ad          
+e        1          47c7       1         1         ae          
+f        1          4d9ca       0         1         af          
+10        1          c26b4       1         1         b0          
+11        1          30c6d       0         1         b1          
+12        1          c4989       1         1         b2          
+13        1          d0099       1         1         b3          
+14        1          a3ff       1         1         b4          
+15        1          1b33f       0         1         b5          
+16        1          e639a       0         1         b6          
+17        1          8b625       1         1         b7          
+18        1          b4c48       1         1         b8          
+19        1          5ad09       1         1         b9          
+1a        1          5cd08       1         1         ba          
+1b        1          d057       1         1         bb          
+1c        1          6e3c7       1         1         bc          
+1d        1          d44a4       1         1         bd          
+1e        1          528ce       1         1         be          
+1f        1          8d449       0         1         bf          
+-----------------------------------------------------
+new_rbit is: 0
+Total Number of instructions: 1000000
+    Load Instructions: 930260
+    Store Instructions: 69740
+    Pages Encountered: 9960
+    Read-only Pages Encountered: 2968
+    TLB misses:  9959
+    Page Faults: 9951
+    Pages evicted from memory: 8927
+    Evicted pages written back to disk: 5562

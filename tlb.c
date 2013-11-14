@@ -107,20 +107,16 @@ int get_m_bit(int i){
 
 void set_foo_bit(int i, BOOL value, int mask){
   if(value){
-    tlb[i].mr_pframe = tlb[i].vbit_and_vpage | mask;
+    tlb[i].mr_pframe = tlb[i].mr_pframe | mask;
   }
   else{
-    tlb[i].mr_pframe = tlb[i].vbit_and_vpage & ~mask;
+    tlb[i].mr_pframe = tlb[i].mr_pframe & ~mask;
   }
 }
 
 void set_valid_bit(int i, BOOL value){
-  //SAY1("Setting valid bit to %i ", value);
-  //SAY1("from %i.\n", tlb[i].vbit_and_vpage & VBIT_MASK);
-  //set_foo_bit(i, value, VBIT_MASK);
   if (value == TRUE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | VBIT_MASK;
   if (value == FALSE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VBIT_MASK;
-  //SAY1("valid bit is now %i\n", get_valid_bit(i));
 }
 
 void set_r_bit(int i, BOOL r_bit){
@@ -131,11 +127,19 @@ void set_m_bit(int i, BOOL m_bit){
   set_foo_bit(i, m_bit, MBIT_MASK);
 }
 void set_vpage(int i, VPAGE_NUMBER vpage){
-  tlb[i].vbit_and_vpage = vpage & VPAGE_MASK;
+  //SAY1("setting vpage to %x\n", vpage);
+  unsigned int masked_vpage = vpage & VPAGE_MASK;
+  tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VPAGE_MASK;
+  tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | masked_vpage;
+  //SAY1("vpage set to %x\n", get_vpage_number(i));
 }
 
 void set_pageframe(int i, PAGEFRAME_NUMBER pf_number){
-  tlb[i].mr_pframe = pf_number & PFRAME_MASK;
+  //SAY1("setting pframe to %x\n", pf_number);
+  unsigned int masked_pfn = pf_number & PFRAME_MASK;
+  tlb[i].mr_pframe = tlb[i].mr_pframe & ~PFRAME_MASK;
+  tlb[i].mr_pframe = tlb[i].mr_pframe | masked_pfn;
+  //SAY1("pf set to %x\n", get_pageframe_number(i));
 }
 
 void clear_valid_bit(int i){
@@ -248,8 +252,8 @@ PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
     return get_pageframe_number(i);
   }
   tlb_miss = TRUE;
-  SAY1("tlb_miss on vpage %x\n",vpage);
-  if (vpage == 0x99958) print_table();
+  //SAY1("tlb_miss on vpage %x\n",vpage);
+  //if (vpage == 0x99958) SAY1("tlb_miss on vpage %x\n",vpage);
 }
 
 
@@ -305,16 +309,34 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
     write_entry_to_mmu(i);
   }
 
-  set_vpage(i, new_vpage);
-  set_pageframe(i, new_pframe);
-  set_m_bit(i, new_mbit);
-  set_r_bit(i, new_rbit);
   set_valid_bit(i, TRUE);
-  //print_table();
+  if (0x99958 == new_vpage) {
+    print_table();
+    SAY1("index is: %x\n", i);
+  } 
+  set_vpage(i, new_vpage);
+  if (0x99958 == new_vpage) {
+    print_table();
+    SAY1("new_vpage is: %x\n", new_vpage);
+  } 
+  set_pageframe(i, new_pframe);
+  if (0x99958 == new_vpage) {
+    print_table();
+    SAY1("new_pframe is: %x\n", new_pframe);
+  } 
+  set_m_bit(i, new_mbit);
+  if (0x99958 == new_vpage) {
+    print_table();
+    SAY1("new_mbit is: %x\n", new_mbit);
+  } 
+  set_r_bit(i, new_rbit);
+  if (0x99958 == new_vpage) {
+    print_table();
+    SAY1("new_rbit is: %x\n", new_rbit);
+  } 
 
   clock_hand = (i + 1) % num_tlb_entries;
 }
-
 
 //Writes the M  & R bits in the each valid TLB
 //entry back to the M & R MMU bitmaps.
