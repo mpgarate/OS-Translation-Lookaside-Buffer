@@ -115,12 +115,12 @@ void set_foo_bit(int i, BOOL value, int mask){
 }
 
 void set_valid_bit(int i, BOOL value){
-  SAY1("Setting valid bit to %i ", value);
-  SAY1("from %i.\n", tlb[i].vbit_and_vpage & VBIT_MASK);
+  //SAY1("Setting valid bit to %i ", value);
+  //SAY1("from %i.\n", tlb[i].vbit_and_vpage & VBIT_MASK);
   //set_foo_bit(i, value, VBIT_MASK);
   if (value == TRUE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | VBIT_MASK;
   if (value == FALSE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VBIT_MASK;
-  SAY1("valid bit is now %i\n", get_valid_bit(i));
+  //SAY1("valid bit is now %i\n", get_valid_bit(i));
 }
 
 void set_r_bit(int i, BOOL r_bit){
@@ -131,11 +131,11 @@ void set_m_bit(int i, BOOL m_bit){
   set_foo_bit(i, m_bit, MBIT_MASK);
 }
 void set_vpage(int i, VPAGE_NUMBER vpage){
-  tlb[i].vbit_and_vpage = vpage & VPAGE_MASK;
+  tlb[i].vbit_and_vpage = vpage & ~VPAGE_MASK;
 }
 
 void set_pageframe(int i, PAGEFRAME_NUMBER pf_number){
-  tlb[i].mr_pframe = pf_number & PFRAME_MASK;
+  tlb[i].mr_pframe = pf_number & ~PFRAME_MASK;
 }
 
 void clear_valid_bit(int i){
@@ -162,7 +162,6 @@ void tlb_initialize()
 
   //Fill in rest here...
   tlb_clear_all();
-
 }
 
 
@@ -189,7 +188,8 @@ void tlb_clear_all_R_bits()
 // This clears out the entry in the TLB for the specified
 // virtual page, by clearing the valid bit for that entry.
 void tlb_clear_entry(VPAGE_NUMBER vpage) {
-  // FILL THIS IN
+  int i = find_by_vpage_number(vpage);
+  clear_valid_bit(i);
 }
 
 
@@ -225,12 +225,6 @@ PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
   tlb_miss = TRUE;
 }
 
-void write_entry_to_mmu(i){
-  mmu_modify_mbit_bitmap(get_pageframe_number(i), get_m_bit(i));
-  mmu_modify_rbit_bitmap(get_pageframe_number(i), get_r_bit(i));
-}
-
-
 void print_entry(int i){
   SAY("-----------------------------------------------------\n");
   SAY("PID --- VALID --- VP_NO --- MOD --- REF --- PF_NO ---\n");
@@ -248,6 +242,12 @@ void print_table(){
   for (i = 0; i< num_tlb_entries; i++){
     if (get_valid_bit(i)) print_entry(i);
   }
+}
+
+
+void write_entry_to_mmu(i){
+  mmu_modify_mbit_bitmap(get_pageframe_number(i), get_m_bit(i));
+  mmu_modify_rbit_bitmap(get_pageframe_number(i), get_r_bit(i));
 }
 
 // Uses an NRU clock algorithm, where the first entry with
@@ -314,6 +314,9 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
 //entry back to the M & R MMU bitmaps.
 void tlb_write_back()
 {
-  //FILL THIS IN
+  int i = 0;
+  for (i = 0; i< num_tlb_entries; i++){
+    if (get_valid_bit(i)) write_entry_to_mmu(i);
+  }
 }
 
