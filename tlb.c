@@ -7,10 +7,11 @@
 
 /* Macro to print verbose statements and flush stdout */
 #ifdef verbose
-  #define v(fmt)        SAY0(fmt)
+  #define v(fmt)        v0(fmt)
   #define v0(fmt)         {printf(fmt); fflush(stdout);}
   #define v1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
   #define v2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
+  #define v2(fmt,parm1,parm2,param3)   {printf(fmt,parm1,parm2,param3); fflush(stdout);}
 #endif
 
 /* Set this to 1 to print out debug statements */
@@ -23,6 +24,8 @@
   #define SAY1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
   #define SAY2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
 #endif
+
+#define ASSERT(result, name) {if(!result) {SAY1("Assertion %s failed.\n", name); exit(0);}}
 
 /* This is some of the code that I wrote. You may use any of this code
    you like, but you certainly don't have to.
@@ -76,6 +79,8 @@ BOOL tlb_miss;
 #define MBIT_MASK   0x40000000  //MBIT is second leftmost bit of second word
 #define PFRAME_MASK 0x000FFFFF            //lowest 20 bits of second word
 
+#define LAST_BIT_OFFSET 31;
+#define M_BIT_OFFSET 30;
 
 /*************************************/
 /***** Use masks to get values *******/
@@ -94,15 +99,15 @@ PAGEFRAME_NUMBER get_pageframe_number(int i){
 }
 
 int get_valid_bit(int i){
-  return (tlb[i].vbit_and_vpage & VBIT_MASK) >> 31;
+  return (tlb[i].vbit_and_vpage & VBIT_MASK) >> LAST_BIT_OFFSET;
 }
 
 int get_r_bit(int i){
-  return (tlb[i].mr_pframe & RBIT_MASK) >> 31;
+  return (tlb[i].mr_pframe & RBIT_MASK) >> LAST_BIT_OFFSET;
 }
 
 int get_m_bit(int i){
-  return (tlb[i].mr_pframe & MBIT_MASK) >> 30;
+  return (tlb[i].mr_pframe & MBIT_MASK) >> M_BIT_OFFSET;
 }
 
 void set_foo_bit(int i, BOOL value, int mask){
@@ -117,36 +122,43 @@ void set_foo_bit(int i, BOOL value, int mask){
 void set_valid_bit(int i, BOOL value){
   if (value == TRUE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | VBIT_MASK;
   if (value == FALSE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VBIT_MASK;
+  ASSERT((get_valid_bit(i) == value), "set_valid_bit");
 }
 
 void set_r_bit(int i, BOOL r_bit){
   set_foo_bit(i, r_bit, RBIT_MASK);
+  ASSERT((get_r_bit(i) == r_bit), "set_r_bit");
 }
 
 void set_m_bit(int i, BOOL m_bit){
   set_foo_bit(i, m_bit, MBIT_MASK);
+  ASSERT((get_m_bit(i) == m_bit), "set_m_bit");
 }
 void set_vpage(int i, VPAGE_NUMBER vpage){
   unsigned int masked_vpage = vpage & VPAGE_MASK;
   tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VPAGE_MASK;
   tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | masked_vpage;
+  ASSERT((get_vpage_number(i) == vpage), "set_vpage");
 }
 
 void set_pageframe(int i, PAGEFRAME_NUMBER pf_number){
   unsigned int masked_pfn = pf_number & PFRAME_MASK;
   tlb[i].mr_pframe = tlb[i].mr_pframe & ~PFRAME_MASK;
   tlb[i].mr_pframe = tlb[i].mr_pframe | masked_pfn;
+  ASSERT((get_pageframe_number(i) == pf_number), "set_pageframe");
 }
 
 void clear_valid_bit(int i){
   if(get_valid_bit(i)){
-    tlb[i].vbit_and_vpage & ~VBIT_MASK;
+    tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VBIT_MASK;
   }
+  ASSERT((get_valid_bit(i) == 0), "clear_valid_bit");
 }
 void clear_r_bit(int i){
   if(get_valid_bit(i)){
-    tlb[i].vbit_and_vpage & ~RBIT_MASK;
+    tlb[i].mr_pframe = tlb[i].mr_pframe & ~RBIT_MASK;
   }
+  ASSERT((get_r_bit(i) == 0), "clear_r_bit");
 }
 
 
@@ -201,7 +213,7 @@ void tlb_clear_all()
 void tlb_clear_all_R_bits() 
 {
   int i;
-  for (i = 0; i<num_tlb_entries; i++){
+  for (i = 0; i<num_tlb_entries+1; i++){
     clear_r_bit(i);
   }
 }
@@ -234,7 +246,7 @@ PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
 {
   int i = find_by_vpage_number(vpage);
 
-  // Check If the index is out of bounds. This means that the tlb entry
+  // Check if the index is within bounds. A value out of bounds means that the tlb entry
   // could not be located.
   if (i <= num_tlb_entries){
     tlb_miss = FALSE;
@@ -281,22 +293,30 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
 {
   int i = clock_hand;
   do {
-    if (!get_valid_bit(i) || !get_r_bit(i)){
+    if ((get_valid_bit(i) == 0) || (get_r_bit(i) == 0)){
+      //SAY1("got index %d\n", i);
       break;
     }
     else{
       /* Increment and loop */
       i = (i + 1) % num_tlb_entries;
     }
+    //SAY("didn't find an index\n");
   } while (i != clock_hand);
 
-  if (get_valid_bit(i)) write_entry_to_mmu(i);
-
-  set_valid_bit(i, TRUE);
+  if (get_valid_bit(i)) {
+    write_entry_to_mmu(i);
+    if (verbose) {
+      printf("Evicting TLB entry, slot = %d, for pageframe %x. M bit = %d\n",i,new_pframe,new_mbit);
+      //print_table();
+      //SAY1("clock_hand is: %d\n", clock_hand);
+    }
+  }
   set_vpage(i, new_vpage);
   set_pageframe(i, new_pframe);
   set_m_bit(i, new_mbit);
   set_r_bit(i, new_rbit);
+  set_valid_bit(i, TRUE);
 
   clock_hand = (i + 1) % num_tlb_entries;
 }
