@@ -7,10 +7,11 @@
 
 /* Macro to print verbose statements and flush stdout */
 #ifdef verbose
-  #define v(fmt)        SAY0(fmt)
+  #define v(fmt)        v0(fmt)
   #define v0(fmt)         {printf(fmt); fflush(stdout);}
   #define v1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
   #define v2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
+  #define v2(fmt,parm1,parm2,param3)   {printf(fmt,parm1,parm2,param3); fflush(stdout);}
 #endif
 
 /* Set this to 1 to print out debug statements */
@@ -78,6 +79,8 @@ BOOL tlb_miss;
 #define MBIT_MASK   0x40000000  //MBIT is second leftmost bit of second word
 #define PFRAME_MASK 0x000FFFFF            //lowest 20 bits of second word
 
+#define LAST_BIT_OFFSET 31;
+#define M_BIT_OFFSET 30;
 
 /*************************************/
 /***** Use masks to get values *******/
@@ -96,15 +99,15 @@ PAGEFRAME_NUMBER get_pageframe_number(int i){
 }
 
 int get_valid_bit(int i){
-  return (tlb[i].vbit_and_vpage & VBIT_MASK) >> 31;
+  return (tlb[i].vbit_and_vpage & VBIT_MASK) >> LAST_BIT_OFFSET;
 }
 
 int get_r_bit(int i){
-  return (tlb[i].mr_pframe & RBIT_MASK) >> 31;
+  return (tlb[i].mr_pframe & RBIT_MASK) >> LAST_BIT_OFFSET;
 }
 
 int get_m_bit(int i){
-  return (tlb[i].mr_pframe & MBIT_MASK) >> 30;
+  return (tlb[i].mr_pframe & MBIT_MASK) >> M_BIT_OFFSET;
 }
 
 void set_foo_bit(int i, BOOL value, int mask){
