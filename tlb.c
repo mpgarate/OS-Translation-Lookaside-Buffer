@@ -79,8 +79,8 @@ BOOL tlb_miss;
 #define MBIT_MASK   0x40000000  //MBIT is second leftmost bit of second word
 #define PFRAME_MASK 0x000FFFFF            //lowest 20 bits of second word
 
-#define LAST_BIT_OFFSET 31;
-#define M_BIT_OFFSET 30;
+#define LAST_BIT_OFFSET 31      //Used for R bit and Vbit
+#define M_BIT_OFFSET 30
 
 /*************************************/
 /***** Use masks to get values *******/
@@ -90,25 +90,17 @@ BOOL tlb_miss;
    mr_pframe;       // 32 bits containing the modified bit, reference bit,
                                 // and 20-bit page frame number
 */
+/*
 VPAGE_NUMBER get_vpage_number(int i){
   return tlb[i].vbit_and_vpage & VPAGE_MASK;
-}
+}*/
 
-PAGEFRAME_NUMBER get_pageframe_number(int i){
-  return tlb[i].mr_pframe & PFRAME_MASK;
-}
+#define get_vpage_number(i) (tlb[i].vbit_and_vpage & VPAGE_MASK)
+#define get_pageframe_number(i) (tlb[i].mr_pframe & PFRAME_MASK)
+#define get_valid_bit(i) ((tlb[i].vbit_and_vpage & VBIT_MASK) >> LAST_BIT_OFFSET)
+#define get_r_bit(i) ((tlb[i].mr_pframe & RBIT_MASK) >> LAST_BIT_OFFSET)
+#define get_m_bit(i) ((tlb[i].mr_pframe & MBIT_MASK) >> M_BIT_OFFSET)
 
-int get_valid_bit(int i){
-  return (tlb[i].vbit_and_vpage & VBIT_MASK) >> LAST_BIT_OFFSET;
-}
-
-int get_r_bit(int i){
-  return (tlb[i].mr_pframe & RBIT_MASK) >> LAST_BIT_OFFSET;
-}
-
-int get_m_bit(int i){
-  return (tlb[i].mr_pframe & MBIT_MASK) >> M_BIT_OFFSET;
-}
 
 void set_foo_bit(int i, BOOL value, int mask){
   if(value){
@@ -119,21 +111,11 @@ void set_foo_bit(int i, BOOL value, int mask){
   }
 }
 
-void set_valid_bit(int i, BOOL value){
-  if (value == TRUE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | VBIT_MASK;
-  if (value == FALSE) tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VBIT_MASK;
-  ASSERT((get_valid_bit(i) == value), "set_valid_bit");
-}
+#define set_r_bit(i, r_bit)(set_foo_bit(i, r_bit, RBIT_MASK))
+#define set_m_bit(i, m_bit)(set_foo_bit(i, m_bit, MBIT_MASK))
 
-void set_r_bit(int i, BOOL r_bit){
-  set_foo_bit(i, r_bit, RBIT_MASK);
-  ASSERT((get_r_bit(i) == r_bit), "set_r_bit");
-}
+#define set_valid_bit(i) (tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | VBIT_MASK)
 
-void set_m_bit(int i, BOOL m_bit){
-  set_foo_bit(i, m_bit, MBIT_MASK);
-  ASSERT((get_m_bit(i) == m_bit), "set_m_bit");
-}
 void set_vpage(int i, VPAGE_NUMBER vpage){
   unsigned int masked_vpage = vpage & VPAGE_MASK;
   tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VPAGE_MASK;
@@ -316,7 +298,7 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
   set_pageframe(i, new_pframe);
   set_m_bit(i, new_mbit);
   set_r_bit(i, new_rbit);
-  set_valid_bit(i, TRUE);
+  set_valid_bit(i);
 
   clock_hand = (i + 1) % num_tlb_entries;
 }
