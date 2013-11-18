@@ -113,37 +113,31 @@ void set_foo_bit(int i, BOOL value, int mask){
 
 #define set_r_bit(i, r_bit)(set_foo_bit(i, r_bit, RBIT_MASK))
 #define set_m_bit(i, m_bit)(set_foo_bit(i, m_bit, MBIT_MASK))
-
 #define set_valid_bit(i) (tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | VBIT_MASK)
 
 void set_vpage(int i, VPAGE_NUMBER vpage){
   unsigned int masked_vpage = vpage & VPAGE_MASK;
   tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VPAGE_MASK;
   tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage | masked_vpage;
-  ASSERT((get_vpage_number(i) == vpage), "set_vpage");
 }
 
 void set_pageframe(int i, PAGEFRAME_NUMBER pf_number){
   unsigned int masked_pfn = pf_number & PFRAME_MASK;
   tlb[i].mr_pframe = tlb[i].mr_pframe & ~PFRAME_MASK;
   tlb[i].mr_pframe = tlb[i].mr_pframe | masked_pfn;
-  ASSERT((get_pageframe_number(i) == pf_number), "set_pageframe");
 }
 
 void clear_valid_bit(int i){
   if(get_valid_bit(i)){
     tlb[i].vbit_and_vpage = tlb[i].vbit_and_vpage & ~VBIT_MASK;
   }
-  ASSERT((get_valid_bit(i) == 0), "clear_valid_bit");
 }
+
 void clear_r_bit(int i){
   if(get_valid_bit(i)){
     tlb[i].mr_pframe = tlb[i].mr_pframe & ~RBIT_MASK;
   }
-  ASSERT((get_r_bit(i) == 0), "clear_r_bit");
 }
-
-
 
 void print_entry(int i){
   SAY1("%x        ",i);
@@ -215,7 +209,7 @@ int find_by_vpage_number(VPAGE_NUMBER vpage){
       if (get_vpage_number(i) == vpage) return i;
     }
   }
-  return num_tlb_entries + 1; //impossible index
+  return -1; //impossible index
 }
 
 
@@ -228,9 +222,9 @@ PAGEFRAME_NUMBER tlb_lookup(VPAGE_NUMBER vpage, OPERATION op)
 {
   int i = find_by_vpage_number(vpage);
 
-  // Check if the index is within bounds. A value out of bounds means that the tlb entry
+  // Check if the index is within bounds. A value of -1 means that the tlb entry
   // could not be located.
-  if (i <= num_tlb_entries){
+  if (i >= 0){
     tlb_miss = FALSE;
     set_r_bit(i,TRUE);
     if (op == STORE) set_m_bit(i,TRUE);
