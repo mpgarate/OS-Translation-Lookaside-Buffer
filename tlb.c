@@ -5,17 +5,8 @@
 #include "cpu.h"
 #include "mmu.h"
 
-/* Macro to print verbose statements and flush stdout */
-#ifdef verbose
-  #define v(fmt)        v0(fmt)
-  #define v0(fmt)         {printf(fmt); fflush(stdout);}
-  #define v1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
-  #define v2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
-  #define v2(fmt,parm1,parm2,param3)   {printf(fmt,parm1,parm2,param3); fflush(stdout);}
-#endif
-
 /* Set this to 1 to print out debug statements */
-#define DEBUG 1
+#define DEBUG 0
 
 /* Macro to print verbose statements and flush stdout */
 #ifdef DEBUG
@@ -79,21 +70,17 @@ BOOL tlb_miss;
 #define MBIT_MASK   0x40000000  //MBIT is second leftmost bit of second word
 #define PFRAME_MASK 0x000FFFFF            //lowest 20 bits of second word
 
+
+/*************************************/
+/**** Offsets for bit retrieval ******/
+/*************************************/
+
 #define LAST_BIT_OFFSET 31      //Used for R bit and Vbit
 #define M_BIT_OFFSET 30
 
 /*************************************/
 /***** Use masks to get values *******/
 /*************************************/
-/* vbit_and_vpage;  // 32 bits containing the valid bit and the 20bit
-                                // virtual page number.
-   mr_pframe;       // 32 bits containing the modified bit, reference bit,
-                                // and 20-bit page frame number
-*/
-/*
-VPAGE_NUMBER get_vpage_number(int i){
-  return tlb[i].vbit_and_vpage & VPAGE_MASK;
-}*/
 
 #define get_vpage_number(i) (tlb[i].vbit_and_vpage & VPAGE_MASK)
 #define get_pageframe_number(i) (tlb[i].mr_pframe & PFRAME_MASK)
@@ -101,6 +88,10 @@ VPAGE_NUMBER get_vpage_number(int i){
 #define get_r_bit(i) ((tlb[i].mr_pframe & RBIT_MASK) >> LAST_BIT_OFFSET)
 #define get_m_bit(i) ((tlb[i].mr_pframe & MBIT_MASK) >> M_BIT_OFFSET)
 
+
+/*************************************/
+/***** Use masks to set values *******/
+/*************************************/
 
 void set_foo_bit(int i, BOOL value, int mask){
   if(value){
@@ -186,7 +177,7 @@ void tlb_clear_all()
 
 
 //clears all the R bits in the TLB
-void tlb_clear_all_R_bits() 
+void tlb_clear_all_R_bits()
 {
   int i;
   for (i = 0; i<num_tlb_entries+1; i++){
@@ -270,22 +261,18 @@ void tlb_insert(VPAGE_NUMBER new_vpage,
   int i = clock_hand;
   do {
     if ((get_valid_bit(i) == 0) || (get_r_bit(i) == 0)){
-      //SAY1("got index %d\n", i);
       break;
     }
     else{
       /* Increment and loop */
       i = (i + 1) % num_tlb_entries;
     }
-    //SAY("didn't find an index\n");
   } while (i != clock_hand);
 
   if (get_valid_bit(i)) {
     write_entry_to_mmu(i);
     if (verbose) {
       printf("Evicting TLB entry, slot = %d, for pageframe %x. M bit = %d\n",i,new_pframe,new_mbit);
-      //print_table();
-      //SAY1("clock_hand is: %d\n", clock_hand);
     }
   }
   set_vpage(i, new_vpage);
