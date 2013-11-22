@@ -5,6 +5,11 @@
 #include "page.h"
 #include "cpu.h"
 
+#define ADDRESS_SIZE 32
+#define PAGE_SIZE 1<<12 //4KB
+#define TABLE_ENTRIES 1024
+#define ENTRY_SIZE 32
+
 /* The following machine parameters are being used:
    
    Number of bits in an address:  32
