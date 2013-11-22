@@ -18,19 +18,6 @@
 
 #define ASSERT(result, name) {if(!result) {SAY1("Assertion %s failed.\n", name); exit(0);}}
 
-/* This is some of the code that I wrote. You may use any of this code
-   you like, but you certainly don't have to.
-*/
-
-/* I defined the TLB as an array of entries,
-   each containing the following:
-   Valid bit: 1 bit
-   Virtual Page: 20 bits
-   Modified bit: 1 bit
-   Reference bit: 1 bit
-   Page Frame: 20 bits (of which only 18 are meaningful given 1GB RAM)
-*/
-
 //You can use a struct to get a two-word entry.
 typedef struct {
   unsigned int vbit_and_vpage;  // 32 bits containing the valid bit and the 20bit
@@ -130,6 +117,10 @@ void clear_r_bit(int i){
   }
 }
 
+/*************************************/
+/***** Print data for debugging ******/
+/*************************************/
+
 void print_entry(int i){
   SAY1("%x        ",i);
   SAY1("%x          ",get_valid_bit(i));
@@ -150,6 +141,7 @@ void print_table(){
   }
   SAY("-----------------------------------------------------\n");
 }
+
 
 // Initialize the TLB (called by the mmu)
 void tlb_initialize()
@@ -200,7 +192,7 @@ int find_by_vpage_number(VPAGE_NUMBER vpage){
       if (get_vpage_number(i) == vpage) return i;
     }
   }
-  return -1; //impossible index
+  return -1; //impossible index returned when entry not found
 }
 
 
