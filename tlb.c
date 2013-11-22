@@ -1,3 +1,8 @@
+/*
+ * Operating Systems Assignment 2
+ * Michael Garate
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "types.h"
