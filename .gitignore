@@ -3,3 +3,4 @@ proj3
 ben
 *.txt
 cmp.sh
+*.o
