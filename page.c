@@ -5,6 +5,17 @@
 #include "page.h"
 #include "cpu.h"
 
+/* Set this to 1 to print out debug statements */
+#define DEBUG 1
+
+/* Macro to print verbose statements and flush stdout */
+#ifdef DEBUG
+  #define SAY(fmt)        SAY0(fmt)
+  #define SAY0(fmt)         {printf(fmt); fflush(stdout);}
+  #define SAY1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
+  #define SAY2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
+#endif
+
 #define ADDRESS_SIZE 32
 #define PAGE_SIZE 1<<12 //4KB
 #define TABLE_ENTRIES 1024
@@ -44,6 +55,23 @@ typedef unsigned int PT_ENTRY;
 // the first level page table
 
 PT_ENTRY **first_level_page_table;
+PT_ENTRY **second_level_page_table;
+
+
+#define PRESENT_BIT_MASK   0x80000000
+#define PF_NUMBER_MASK     0x000FFFFF
+
+
+void clear_entry(int i){
+  if (i < TABLE_ENTRIES) first_level_page_table[i] = NULL;
+}
+
+void clear_page_table(){
+  int i = 0;
+  for (i=0;i<TABLE_ENTRIES;i++){
+    clear_entry(i);
+  }
+}
 
 // This sets up the initial page table. The function
 // is called by the MMU.
@@ -53,11 +81,12 @@ PT_ENTRY **first_level_page_table;
 // when a new page is referenced by the CPU, the 
 // second level page table for storing the entry
 // for that new page should be created if it doesn't
-// exist already. 
+// exist already.
 
 void pt_initialize_page_table()
 {
-  //FILL THIS IN
+  first_level_page_table = malloc(TABLE_ENTRIES*ENTRY_SIZE);
+  clear_page_table();
 }
 
 // for performing DIV by 1024 to index into the
@@ -77,6 +106,8 @@ BOOL page_fault;  //set to true if there is a page fault
 // should be set to TRUE (otherwise FALSE).
 PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 {
+  SAY1("got vpage: %x\n",vpage);
+  page_fault = TRUE;
     // FILL THIS IN
 }
 
