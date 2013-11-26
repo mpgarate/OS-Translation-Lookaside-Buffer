@@ -38,6 +38,21 @@
 
 */
 
+#define INDEX_MASK_L1 0x000008FF
+#define INDEX_MASK_L2 0x000FF800
+#define INDEX_L2_SHIFT 10
+
+int get_index_from_vpage(VPAGE_NUMBER vpage){
+  int i = vpage & INDEX_MASK_L1;
+  if (i < TABLE_ENTRIES) {
+    return i;
+  }
+  else {
+    i = (vpage & INDEX_MASK_L2); //must be shifted with >> INDEX_L2_SHIFT
+    return i;
+  }
+}
+
 /* Each entry of a 2nd level page table has
    the following:
      Present/Absent bit: 1 bit
@@ -97,6 +112,16 @@ void pt_initialize_page_table()
 // second level page table
 #define MOD_SECOND_PT_MASK 0x3FF 
 
+
+PAGEFRAME_NUMBER get_pf_number(int i){
+  if (i < TABLE_ENTRIES){
+    return first_level_page_table[i] & PF_NUMBER_MASK;
+  }
+  else{
+    return second_level_page_table[i] & PF_NUMBER_MASK;
+  }
+}
+
 BOOL page_fault;  //set to true if there is a page fault
 
 //This is called when there is a TLB_miss.
@@ -106,9 +131,17 @@ BOOL page_fault;  //set to true if there is a page fault
 // should be set to TRUE (otherwise FALSE).
 PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 {
-  SAY1("got vpage: %x\n",vpage);
-  page_fault = TRUE;
-    // FILL THIS IN
+  //this index needs to be shifted if it is > TABLE_ENTRIES
+  int i = get_index_from_vpage(vpage); //index
+
+  PAGEFRAME_NUMBER pf_number = get_pf_number(i);
+  if(pf_number == -1){
+    page_fault = TRUE;
+  }
+  else{
+    page_fault = FALSE;
+    return pf_number;
+  }
 }
 
 
