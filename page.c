@@ -71,9 +71,6 @@ PT_ENTRY **first_level_page_table;
 #define get_L2_index(vpage) ((vpage & INDEX_MASK_L2) >> INDEX_L2_SHIFT)
 #define get_pf_number(entry) (entry & PF_NUMBER_MASK)
 
-void set_present_bit(PT_ENTRY entry){
-  entry = (entry | PRESENT_BIT_MASK);
-}
 
 void clear_L1_entry(int i){
   if (i < TABLE_ENTRIES) first_level_page_table[i] = NULL;
@@ -145,7 +142,6 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
     page_fault = TRUE;
   }
   else{
-    SAY("NO PAGE FAULT!\n");
     page_fault = FALSE;
     return pf_number;
   }
@@ -153,7 +149,7 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 
 PT_ENTRY* create_L2_page_table(int L1_index){
   PT_ENTRY* table_L2 = malloc(TABLE_ENTRIES*ENTRY_SIZE);
-  SAY1("Creating table_L2 #%d\n",L1_index);
+  //SAY1("Creating table_L2 #%d\n",L1_index);
   clear_L2_page_table(table_L2);
   first_level_page_table[L1_index] = table_L2;
   return table_L2;
@@ -171,13 +167,13 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
   if(table_L2 == NULL) {
     table_L2 = create_L2_page_table(L1_index);
-    SAY("Created L2 page table\n");
+    //SAY("Created L2 page table\n");
   }
-  SAY2("Getting entry at P2 index %d for vpage %x\n",L2_index,vpage);
+  //SAY2("Getting entry at P2 index %d for vpage %x\n",L2_index,vpage);
   PT_ENTRY entry = table_L2[L2_index];
   if (entry != 0) SAY("WARNING: Overwriting an entry.");
-  entry = pframe;
-  set_present_bit(entry);
+  //table_L2[L2_index] = pframe;
+  table_L2[L2_index] = (pframe | PRESENT_BIT_MASK);
 }
 
 
@@ -186,7 +182,12 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
 // from a page frame.
 void pt_clear_page_table_entry(VPAGE_NUMBER vpage)
 {
-  // Fill this in
+  int L1_index = get_L1_index(vpage);
+  int L2_index = get_L2_index(vpage);
+
+  PT_ENTRY* table_L2 = first_level_page_table[L1_index];
+  if(table_L2 == NULL) return;
+  table_L2[L2_index] = 0;
 }
 
 
