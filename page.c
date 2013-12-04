@@ -16,10 +16,6 @@
   #define SAY2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
 #endif
 
-#define ADDRESS_SIZE 32
-#define PAGE_SIZE 1<<12 //4KB
-#define TABLE_ENTRIES 1024
-#define ENTRY_SIZE 32
 
 /* The following machine parameters are being used:
    
@@ -38,20 +34,15 @@
 
 */
 
+#define ADDRESS_SIZE 32
+#define PAGE_SIZE 1<<12 //4KB
+#define TABLE_ENTRIES 1024
+#define ENTRY_SIZE 32
+
 #define INDEX_MASK_L1 0x000008FF
 #define INDEX_MASK_L2 0x000FF800
 #define INDEX_L2_SHIFT 10
 
-int get_index_from_vpage(VPAGE_NUMBER vpage){
-  int i = vpage & INDEX_MASK_L1;
-  if (i < TABLE_ENTRIES) {
-    return i;
-  }
-  else {
-    i = (vpage & INDEX_MASK_L2); //must be shifted with >> INDEX_L2_SHIFT
-    return i;
-  }
-}
 
 /* Each entry of a 2nd level page table has
    the following:
@@ -70,21 +61,25 @@ typedef unsigned int PT_ENTRY;
 // the first level page table
 
 PT_ENTRY **first_level_page_table;
-PT_ENTRY **second_level_page_table;
 
 
 #define PRESENT_BIT_MASK   0x80000000
 #define PF_NUMBER_MASK     0x000FFFFF
 
 
-void clear_entry(int i){
+#define get_L1_index(vpage) (vpage & INDEX_MASK_L1)
+#define get_L2_index(vpage) ((vpage & INDEX_MASK_L2) << INDEX_L2_SHIFT)
+
+#define get_pf_number(entry) (entry & PF_NUMBER_MASK)
+
+void clear_L1_entry(int i){
   if (i < TABLE_ENTRIES) first_level_page_table[i] = NULL;
 }
 
-void clear_page_table(){
+void clear_L1_page_table(){
   int i = 0;
   for (i=0;i<TABLE_ENTRIES;i++){
-    clear_entry(i);
+    clear_L1_entry(i);
   }
 }
 
@@ -101,7 +96,7 @@ void clear_page_table(){
 void pt_initialize_page_table()
 {
   first_level_page_table = malloc(TABLE_ENTRIES*ENTRY_SIZE);
-  clear_page_table();
+  clear_L1_page_table();
 }
 
 // for performing DIV by 1024 to index into the
@@ -110,16 +105,16 @@ void pt_initialize_page_table()
 
 // for performing MOD  1024 to index in a 
 // second level page table
-#define MOD_SECOND_PT_MASK 0x3FF 
+#define MOD_SECOND_PT_MASK 0x3FF
 
 
-PAGEFRAME_NUMBER get_pf_number(int i){
-  if (i < TABLE_ENTRIES){
-    return first_level_page_table[i] & PF_NUMBER_MASK;
-  }
-  else{
-    return second_level_page_table[i] & PF_NUMBER_MASK;
-  }
+PAGEFRAME_NUMBER find_pf_number(int L1_index, int L2_index){
+  PT_ENTRY* table_L2 = first_level_page_table[L1_index];
+  if(table_L2 == NULL) return -1;
+  PT_ENTRY entry = table_L2[L2_index];
+  PAGEFRAME_NUMBER pf_number = get_pf_number(entry);
+  if (pf_number == 0) return -1;
+  return pf_number;
 }
 
 BOOL page_fault;  //set to true if there is a page fault
@@ -131,11 +126,12 @@ BOOL page_fault;  //set to true if there is a page fault
 // should be set to TRUE (otherwise FALSE).
 PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 {
-  //this index needs to be shifted if it is > TABLE_ENTRIES
-  int i = get_index_from_vpage(vpage); //index
 
-  PAGEFRAME_NUMBER pf_number = get_pf_number(i);
-  if(pf_number == -1){
+  int L1_index = get_L1_index(vpage);
+  int L2_index = get_L2_index(vpage);
+
+  PAGEFRAME_NUMBER pf_number = find_pf_number(L1_index,L2_index);
+  if (pf_number == -1) {
     page_fault = TRUE;
   }
   else{
@@ -152,6 +148,8 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 // to hold the entry, if it doesn't already exist.
 void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
 {
+
+
   // FILL THIS IN
 
   //don't forget to set the present bit for the new entry
