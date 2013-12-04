@@ -63,12 +63,21 @@ typedef unsigned int PT_ENTRY;
 PT_ENTRY **first_level_page_table;
 
 
+// for performing DIV by 1024 to index into the
+// first level page table
+#define DIV_FIRST_PT_SHIFT 10  
+
+// for performing MOD  1024 to index in a 
+// second level page table
+#define MOD_SECOND_PT_MASK 0x3FF
+
+
 #define PRESENT_BIT_MASK   0x80000000
 #define PF_NUMBER_MASK     0x000FFFFF
 
 
-#define get_L1_index(vpage) (vpage & INDEX_MASK_L1)
-#define get_L2_index(vpage) ((vpage & INDEX_MASK_L2) >> INDEX_L2_SHIFT)
+#define get_L1_index(vpage) ((vpage & INDEX_MASK_L1) % MOD_SECOND_PT_MASK)
+#define get_L2_index(vpage) ((vpage & INDEX_MASK_L2) >> DIV_FIRST_PT_SHIFT)
 #define get_pf_number(entry) (entry & PF_NUMBER_MASK)
 
 
@@ -106,14 +115,6 @@ void pt_initialize_page_table()
   clear_L1_page_table();
 }
 
-// for performing DIV by 1024 to index into the
-// first level page table
-#define DIV_FIRST_PT_SHIFT 10  
-
-// for performing MOD  1024 to index in a 
-// second level page table
-#define MOD_SECOND_PT_MASK 0x3FF
-
 
 PAGEFRAME_NUMBER find_pf_number(int L1_index, int L2_index){
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
@@ -149,7 +150,7 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 
 PT_ENTRY* create_L2_page_table(int L1_index){
   PT_ENTRY* table_L2 = malloc(TABLE_ENTRIES*ENTRY_SIZE);
-  //SAY1("Creating table_L2 #%d\n",L1_index);
+  SAY1("Creating table_L2 #%d\n",L1_index);
   clear_L2_page_table(table_L2);
   first_level_page_table[L1_index] = table_L2;
   return table_L2;
