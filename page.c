@@ -68,7 +68,7 @@ PT_ENTRY **first_level_page_table;
 
 
 #define get_L1_index(vpage) (vpage & INDEX_MASK_L1)
-#define get_L2_index(vpage) ((vpage & INDEX_MASK_L2) << INDEX_L2_SHIFT)
+#define get_L2_index(vpage) ((vpage & INDEX_MASK_L2) >> INDEX_L2_SHIFT)
 #define get_pf_number(entry) (entry & PF_NUMBER_MASK)
 
 void set_present_bit(PT_ENTRY entry){
@@ -153,9 +153,10 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 
 PT_ENTRY* create_L2_page_table(int L1_index){
   PT_ENTRY* table_L2 = malloc(TABLE_ENTRIES*ENTRY_SIZE);
-  SAY2("table_L2 #%d is: %d\n",L1_index,table_L2[1]);
+  SAY1("Creating table_L2 #%d\n",L1_index);
   clear_L2_page_table(table_L2);
   first_level_page_table[L1_index] = table_L2;
+  return table_L2;
 }
 
 // This inserts into the page table an entry mapping of the 
