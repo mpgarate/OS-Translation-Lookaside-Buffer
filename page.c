@@ -6,7 +6,7 @@
 #include "cpu.h"
 
 /* Set this to 1 to print out debug statements */
-#define DEBUG 1
+#define DEBUG 0
 
 /* Macro to print verbose statements and flush stdout */
 #ifdef DEBUG
@@ -14,6 +14,13 @@
   #define SAY0(fmt)         {printf(fmt); fflush(stdout);}
   #define SAY1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
   #define SAY2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
+#endif
+
+#ifdef verbose
+  #define V(fmt)        V0(fmt)
+  #define V0(fmt)         {printf(fmt); fflush(stdout);}
+  #define V1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
+  #define V2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
 #endif
 
 
@@ -76,8 +83,8 @@ PT_ENTRY **first_level_page_table;
 #define PF_NUMBER_MASK     0x000FFFFF
 
 
-#define get_L1_index(vpage) ((vpage & INDEX_MASK_L1) % MOD_SECOND_PT_MASK)
-#define get_L2_index(vpage) ((vpage & INDEX_MASK_L2) >> DIV_FIRST_PT_SHIFT)
+#define get_L2_index(vpage) (vpage % MOD_SECOND_PT_MASK)
+#define get_L1_index(vpage) (vpage >> DIV_FIRST_PT_SHIFT)
 #define get_pf_number(entry) (entry & PF_NUMBER_MASK)
 
 
@@ -150,7 +157,7 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 
 PT_ENTRY* create_L2_page_table(int L1_index){
   PT_ENTRY* table_L2 = malloc(TABLE_ENTRIES*ENTRY_SIZE);
-  SAY1("Creating table_L2 #%d\n",L1_index);
+  //SAY1("Creating table_L2 #%d\n",L1_index);
   clear_L2_page_table(table_L2);
   first_level_page_table[L1_index] = table_L2;
   return table_L2;
@@ -165,6 +172,8 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
   int L1_index = get_L1_index(vpage);
   int L2_index = get_L2_index(vpage);
 
+  SAY2("got indexes %d and %d\n",L2_index,L1_index);
+
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
   if(table_L2 == NULL) {
     table_L2 = create_L2_page_table(L1_index);
@@ -173,7 +182,6 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
   //SAY2("Getting entry at P2 index %d for vpage %x\n",L2_index,vpage);
   PT_ENTRY entry = table_L2[L2_index];
   if (entry != 0) SAY("WARNING: Overwriting an entry.");
-  //table_L2[L2_index] = pframe;
   table_L2[L2_index] = (pframe | PRESENT_BIT_MASK);
 }
 
