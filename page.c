@@ -87,9 +87,8 @@ PT_ENTRY **first_level_page_table;
 #define get_L1_index(vpage) (vpage >> DIV_FIRST_PT_SHIFT)
 #define get_pf_number(entry) (entry & PF_NUMBER_MASK)
 
-
 void clear_L1_entry(int i){
-  if (i < TABLE_ENTRIES) first_level_page_table[i] = NULL;
+  first_level_page_table[i] = NULL;
 }
 
 void clear_L1_page_table(){
@@ -122,13 +121,19 @@ void pt_initialize_page_table()
   clear_L1_page_table();
 }
 
-
 PAGEFRAME_NUMBER find_pf_number(int L1_index, int L2_index){
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
-  if(table_L2 == NULL) return -1;
+  if(table_L2 == NULL){
+    return -1;
+  }
   PT_ENTRY entry = table_L2[L2_index];
+  if (entry == 0){ //present bit and pf_number are 0
+    return -1;
+  }
   PAGEFRAME_NUMBER pf_number = get_pf_number(entry);
-  if (pf_number == 0) return -1;
+  if (pf_number == 0){ //present bit and pf_number are 0
+    return -1;
+  }
   return pf_number;
 }
 
@@ -141,7 +146,6 @@ BOOL page_fault;  //set to true if there is a page fault
 // should be set to TRUE (otherwise FALSE).
 PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 {
-
   int L1_index = get_L1_index(vpage);
   int L2_index = get_L2_index(vpage);
 
@@ -172,7 +176,7 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
   int L1_index = get_L1_index(vpage);
   int L2_index = get_L2_index(vpage);
 
-  SAY2("got indexes %d and %d\n",L2_index,L1_index);
+  //SAY2("got indexes %d and %d\n",L2_index,L1_index);
 
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
   if(table_L2 == NULL) {
@@ -181,7 +185,10 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
   }
   //SAY2("Getting entry at P2 index %d for vpage %x\n",L2_index,vpage);
   PT_ENTRY entry = table_L2[L2_index];
-  if (entry != 0) SAY("WARNING: Overwriting an entry.");
+  if (entry != 0) {
+    //SAY("WARNING: Overwriting an entry.");
+    table_L2[L2_index] = 0;
+  }
   table_L2[L2_index] = (pframe | PRESENT_BIT_MASK);
 }
 
@@ -195,7 +202,10 @@ void pt_clear_page_table_entry(VPAGE_NUMBER vpage)
   int L2_index = get_L2_index(vpage);
 
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
-  if(table_L2 == NULL) return;
+  if(table_L2 == NULL) {
+    SAY("Tried to remove a vpage that does not exist!\n");
+    return;
+  }
   table_L2[L2_index] = 0;
 }
 
