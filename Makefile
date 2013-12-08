@@ -14,5 +14,3 @@ proj2$(EXE): $(srcdir)/tlb.o $(srcdir)/cpu.o $(srcdir)/mmu.o $(srcdir)/page.o $(
 
 proj3$(EXE):  $(srcdir)/tlb.o $(srcdir)/cpu.o $(srcdir)/mmu.o $(srcdir)/page.o $(srcdir)/kernel.o
 	$(CC) -o proj3$(EXE) $(CFLAGS) $(srcdir)/tlb.o $(srcdir)/cpu.o $(srcdir)/mmu.o $(srcdir)/page.o $(srcdir)/kernel.o
-
-

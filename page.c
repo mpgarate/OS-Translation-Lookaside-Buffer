@@ -81,11 +81,12 @@ PT_ENTRY **first_level_page_table;
 
 #define PRESENT_BIT_MASK   0x80000000
 #define PF_NUMBER_MASK     0x000FFFFF
-
+#define PRESENT_BIT_SHIFT  31
 
 #define get_L2_index(vpage) (vpage % MOD_SECOND_PT_MASK)
 #define get_L1_index(vpage) (vpage >> DIV_FIRST_PT_SHIFT)
 #define get_pf_number(entry) (entry & PF_NUMBER_MASK)
+#define get_present_bit(entry) ((entry & PRESENT_BIT_MASK) >> PRESENT_BIT_SHIFT)
 
 void clear_L1_entry(int i){
   first_level_page_table[i] = NULL;
@@ -127,14 +128,18 @@ PAGEFRAME_NUMBER find_pf_number(int L1_index, int L2_index){
     return -1;
   }
   PT_ENTRY entry = table_L2[L2_index];
-  if (entry == 0){ //present bit and pf_number are 0
+  if ((entry == 0) | (get_present_bit(entry) == 0)){
     return -1;
   }
-  PAGEFRAME_NUMBER pf_number = get_pf_number(entry);
-  if (pf_number == 0){ //present bit and pf_number are 0
-    return -1;
+  else{
+    PAGEFRAME_NUMBER pf_number = get_pf_number(entry);
+    if(pf_number == 0){
+      SAY1("pf 0, pbit is: %d \n",get_present_bit(entry));
+      SAY2("i1: %d i2: %d \n",L1_index,L2_index);
+      //return -1;
+    }
+    return pf_number; 
   }
-  return pf_number;
 }
 
 BOOL page_fault;  //set to true if there is a page fault
@@ -206,7 +211,7 @@ void pt_clear_page_table_entry(VPAGE_NUMBER vpage)
     SAY("Tried to remove a vpage that does not exist!\n");
     return;
   }
-  table_L2[L2_index] = 0;
+  table_L2[L2_index] = 0;//table_L2[L2_index] & ~PRESENT_BIT_MASK;
 }
 
 
