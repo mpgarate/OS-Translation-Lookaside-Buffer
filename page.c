@@ -74,7 +74,7 @@ PT_ENTRY **first_level_page_table;
 // first level page table
 #define DIV_FIRST_PT_SHIFT 10  
 
-// for performing MOD  1024 to index in a 
+// for performing MOD 1024 to index in a 
 // second level page table
 #define MOD_SECOND_PT_MASK 0x3FF
 
@@ -83,19 +83,15 @@ PT_ENTRY **first_level_page_table;
 #define PF_NUMBER_MASK     0x000FFFFF
 #define PRESENT_BIT_SHIFT  31
 
-#define get_L2_index(vpage) (vpage % MOD_SECOND_PT_MASK)
 #define get_L1_index(vpage) (vpage >> DIV_FIRST_PT_SHIFT)
+#define get_L2_index(vpage) (vpage % MOD_SECOND_PT_MASK)
 #define get_pf_number(entry) (entry & PF_NUMBER_MASK)
 #define get_present_bit(entry) ((entry & PRESENT_BIT_MASK) >> PRESENT_BIT_SHIFT)
-
-void clear_L1_entry(int i){
-  first_level_page_table[i] = NULL;
-}
 
 void clear_L1_page_table(){
   int i = 0;
   for (i=0;i<TABLE_ENTRIES;i++){
-    clear_L1_entry(i);
+    first_level_page_table[i] = NULL;
   }
 }
 
@@ -104,6 +100,33 @@ void clear_L2_page_table(PT_ENTRY* table_L2){
   for (i=0; i<TABLE_ENTRIES;i++){
     table_L2[i] = 0; //clear L2 entry i
   }
+}
+
+#define ASSERT(b){if(!b){int x = 0/0;}}
+
+void print_entry(int i, int j, PT_ENTRY* table_L2){
+  if (get_present_bit(table_L2[j]))
+    SAY2("[%d]-%x\n",j,table_L2[j]);
+}
+
+void print_all_entries(){
+  int i = 0;
+  int j = 0;
+  PT_ENTRY* table_L2;
+  PT_ENTRY entry;
+  for (i = 0; i< TABLE_ENTRIES; i++){
+    table_L2 = first_level_page_table[i];
+    if (table_L2 != NULL) {
+      SAY1("Printing L1 %d\n",i);
+      SAY("-----------------------------------------\n");
+      for (j = 0; j<TABLE_ENTRIES; j++){
+        entry = table_L2[j];
+        print_entry(i,j,table_L2);
+      }
+      SAY("-----------------------------------------\n");
+    }
+  }
+  exit(0);
 }
 
 // This sets up the initial page table. The function
@@ -134,8 +157,8 @@ PAGEFRAME_NUMBER find_pf_number(int L1_index, int L2_index){
   else{
     PAGEFRAME_NUMBER pf_number = get_pf_number(entry);
     if(pf_number == 0){
-      SAY1("pf 0, pbit is: %d \n",get_present_bit(entry));
-      SAY2("i1: %d i2: %d \n",L1_index,L2_index);
+      //SAY1("pf 0, pbit is: %d \n",get_present_bit(entry));
+      //SAY2("i1: %d i2: %d \n",L1_index,L2_index);
       //return -1;
     }
     return pf_number; 
@@ -151,6 +174,11 @@ BOOL page_fault;  //set to true if there is a page fault
 // should be set to TRUE (otherwise FALSE).
 PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 {
+  if(vpage == 0x3ff) {
+    SAY("GOT 3ff\n");
+    //print_all_entries();
+  }
+
   int L1_index = get_L1_index(vpage);
   int L2_index = get_L2_index(vpage);
 
