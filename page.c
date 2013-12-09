@@ -43,7 +43,12 @@
 
 // #define ADDRESS_SIZE 32
 // #define PAGE_SIZE 1<<12     //4KB
-   
+
+
+/*************************************/
+/******* Machine Param Macros ********/
+/*************************************/
+
 #define TABLE_ENTRIES 1024  // same for L1 and L2
 #define ENTRY_SIZE 32       // same for L1 and L2
 
@@ -79,6 +84,9 @@ PT_ENTRY **first_level_page_table;
 // second level page table
 #define MOD_SECOND_PT_MASK 0x3FF
 
+/*************************************/
+/******* Entry Accessor Macros *******/
+/*************************************/
 
 #define PRESENT_BIT_MASK   0x80000000
 #define PF_NUMBER_MASK     0x000FFFFF
@@ -91,6 +99,11 @@ PT_ENTRY **first_level_page_table;
 #define get_pf_number(entry) (entry & PF_NUMBER_MASK)
 #define get_present_bit(entry) ((entry & PRESENT_BIT_MASK) >> PRESENT_BIT_SHIFT)
 
+
+/*************************************/
+/********** Table Clearing ***********/
+/*************************************/
+
 void clear_L1_page_table(){
   int i = 0;
   for (i=0;i<TABLE_ENTRIES;i++){
@@ -98,13 +111,16 @@ void clear_L1_page_table(){
   }
 }
 
-
 void clear_L2_page_table(PT_ENTRY* table_L2){
   int i = 0;
   for (i=0; i<TABLE_ENTRIES;i++){
     table_L2[i] = 0; //clear L2 entry i
   }
 }
+
+/*************************************/
+/******** Print for Debugging ********/
+/*************************************/
 
 void print_entry(int i, int j, PT_ENTRY* table_L2){
   if (get_present_bit(table_L2[j]))
@@ -184,6 +200,10 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
   }
 }
 
+/*************************************/
+/* Create a level 2 page table, clear 
+ * it, and set it in the level 1 table. 
+/*************************************/
 PT_ENTRY* create_L2_page_table(int L1_index){
   PT_ENTRY* table_L2 = malloc(TABLE_ENTRIES*ENTRY_SIZE);
   clear_L2_page_table(table_L2);
