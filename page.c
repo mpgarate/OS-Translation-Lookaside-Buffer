@@ -16,14 +16,6 @@
   #define SAY2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
 #endif
 
-#ifdef verbose
-  #define V(fmt)        V0(fmt)
-  #define V0(fmt)         {printf(fmt); fflush(stdout);}
-  #define V1(fmt,parm1)     {printf(fmt,parm1); fflush(stdout);}
-  #define V2(fmt,parm1,parm2)   {printf(fmt,parm1,parm2); fflush(stdout);}
-#endif
-
-
 /* The following machine parameters are being used:
    
    Number of bits in an address:  32
@@ -145,6 +137,11 @@ void print_all_entries(){
   exit(0);
 }
 
+
+/*************************************/
+/******* Primary Functionality *******/
+/*************************************/
+
 // This sets up the initial page table. The function
 // is called by the MMU.
 //
@@ -160,6 +157,11 @@ void pt_initialize_page_table()
   first_level_page_table = malloc(TABLE_ENTRIES*ENTRY_SIZE);
   clear_L1_page_table();
 }
+
+/* 
+ * Given two table indices, determine whther the pageframe
+ * number is stored and return it. Otherwise return -1.
+ */
 
 PAGEFRAME_NUMBER find_pf_number(int L1_index, int L2_index){
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
@@ -191,7 +193,7 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 
   PAGEFRAME_NUMBER pf_number = find_pf_number(L1_index,L2_index);
 
-  if (pf_number == -1) {
+  if (pf_number == -1) { //could not be found
     page_fault = TRUE;
   }
   else{
@@ -200,10 +202,10 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
   }
 }
 
-/*************************************/
-/* Create a level 2 page table, clear 
+/*
+ * Create a level 2 page table, clear 
  * it, and set it in the level 1 table. 
-/*************************************/
+ */
 PT_ENTRY* create_L2_page_table(int L1_index){
   PT_ENTRY* table_L2 = malloc(TABLE_ENTRIES*ENTRY_SIZE);
   clear_L2_page_table(table_L2);
