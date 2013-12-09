@@ -235,10 +235,9 @@ void pt_clear_page_table_entry(VPAGE_NUMBER vpage)
 
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
   if(table_L2 == NULL) {
+    /* Control should never reach here */
     SAY("Tried to remove a vpage that does not exist!\n");
     return;
   }
-  table_L2[L2_index] = 0;
+  table_L2[L2_index] = 0; //clear the entry
 }
-
-
