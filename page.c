@@ -44,17 +44,12 @@
 #define TABLE_ENTRIES 1024  // same for L1 and L2
 #define ENTRY_SIZE 32       // same for L1 and L2
 
-#define INDEX_MASK_L1 0x000008FF
-#define INDEX_MASK_L2 0x000FF800
-#define INDEX_L2_SHIFT 10
-
 
 /* Each entry of a 2nd level page table has
    the following:
      Present/Absent bit: 1 bit
      Page Frame: 20 bits
 */
-
 
 // This is the type definition for the 
 // an entry in a second level page table
@@ -134,7 +129,6 @@ void print_all_entries(){
       SAY("-----------------------------------------\n");
     }
   }
-  exit(0);
 }
 
 
@@ -173,8 +167,7 @@ PAGEFRAME_NUMBER find_pf_number(int L1_index, int L2_index){
     return -1;
   }
   else{
-    PAGEFRAME_NUMBER pf_number = get_pf_number(entry);
-    return pf_number; 
+    return get_pf_number(entry);
   }
 }
 
@@ -204,7 +197,7 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 
 /*
  * Create a level 2 page table, clear 
- * it, and set it in the level 1 table. 
+ * it, and set its level 1 table entry. 
  */
 PT_ENTRY* create_L2_page_table(int L1_index){
   PT_ENTRY* table_L2 = malloc(TABLE_ENTRIES*ENTRY_SIZE);
@@ -225,11 +218,6 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
   if(table_L2 == NULL) {
     table_L2 = create_L2_page_table(L1_index);
-  }
-  else{
-    if (table_L2[L2_index] != 0) {
-      table_L2[L2_index] = 0;
-    }
   }
 
   unsigned int value = pframe | PRESENT_BIT_MASK;
