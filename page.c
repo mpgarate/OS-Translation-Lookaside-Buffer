@@ -41,8 +41,9 @@
 
 */
 
-#define ADDRESS_SIZE 32
-#define PAGE_SIZE 1<<12     //4KB
+// #define ADDRESS_SIZE 32
+// #define PAGE_SIZE 1<<12     //4KB
+   
 #define TABLE_ENTRIES 1024  // same for L1 and L2
 #define ENTRY_SIZE 32       // same for L1 and L2
 
@@ -83,7 +84,7 @@ PT_ENTRY **first_level_page_table;
 #define PF_NUMBER_MASK     0x000FFFFF
 #define PRESENT_BIT_SHIFT  31
 
-/* 0x3FF -> 0011 1111 1111 */
+/* Example: 0x3FF -> 0011 1111 1111 */
 
 #define get_L1_index(vpage) (vpage >> DIV_FIRST_PT_SHIFT)
 #define get_L2_index(vpage) (vpage & MOD_SECOND_PT_MASK)
@@ -97,19 +98,6 @@ void clear_L1_page_table(){
   }
 }
 
-
-#ifdef DEBUG
-#define ASSERT(c) doAssert(c)
-#else
-#define ASSERT(c)
-#endif
-
-void doAssert(int c)
-{
-  if (c) return;
-  int x = 0;
-  x = x / x;
-}
 
 void clear_L2_page_table(PT_ENTRY* table_L2){
   int i = 0;
@@ -168,11 +156,6 @@ PAGEFRAME_NUMBER find_pf_number(int L1_index, int L2_index){
   }
   else{
     PAGEFRAME_NUMBER pf_number = get_pf_number(entry);
-    if(pf_number == 0){
-      //SAY1("pf 0, pbit is: %d \n",get_present_bit(entry));
-      //SAY2("i1: %d i2: %d \n",L1_index,L2_index);
-      //return -1;
-    }
     return pf_number; 
   }
 }
@@ -192,12 +175,6 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 
   PAGEFRAME_NUMBER pf_number = find_pf_number(L1_index,L2_index);
 
-  if(vpage == 0x3ff) {
-    //SAY2("3ff i1: %d i2: %d\n",L1_index,L2_index);
-    //SAY1("3ff pf_number: %d\n",pf_number);
-    //print_all_entries();
-  }
-
   if (pf_number == -1) {
     page_fault = TRUE;
   }
@@ -209,7 +186,6 @@ PAGEFRAME_NUMBER pt_get_pageframe(VPAGE_NUMBER vpage)
 
 PT_ENTRY* create_L2_page_table(int L1_index){
   PT_ENTRY* table_L2 = malloc(TABLE_ENTRIES*ENTRY_SIZE);
-  //SAY1("Creating table_L2 #%d\n",L1_index);
   clear_L2_page_table(table_L2);
   first_level_page_table[L1_index] = table_L2;
   return table_L2;
@@ -224,28 +200,18 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
   int L1_index = get_L1_index(vpage);
   int L2_index = get_L2_index(vpage);
 
-  //SAY2("got indexes %d and %d\n",L2_index,L1_index);
-
   PT_ENTRY* table_L2 = first_level_page_table[L1_index];
   if(table_L2 == NULL) {
     table_L2 = create_L2_page_table(L1_index);
-    ASSERT(table_L2 == first_level_page_table[L1_index]);
-    ASSERT(!get_present_bit(table_L2[L2_index]));
   }
   else{
-    //SAY2("Getting entry at P2 index %d for vpage %x\n",L2_index,vpage);
     if (table_L2[L2_index] != 0) {
-      //SAY("WARNING: Overwriting an entry.");
       table_L2[L2_index] = 0;
     }
   }
 
-  ASSERT(!get_present_bit(table_L2[L2_index]));
   unsigned int value = pframe | PRESENT_BIT_MASK;
-  //SAY1("value: %x\n",value);
   table_L2[L2_index] = value;
-  ASSERT(get_present_bit(table_L2[L2_index]));
-  ASSERT(pframe == find_pf_number(L1_index,L2_index));
 }
 
 
@@ -254,7 +220,6 @@ void pt_update_pagetable(VPAGE_NUMBER vpage, PAGEFRAME_NUMBER pframe)
 // from a page frame.
 void pt_clear_page_table_entry(VPAGE_NUMBER vpage)
 {
-  //SAY1("clearing page table entry %x\n",vpage);
   int L1_index = get_L1_index(vpage);
   int L2_index = get_L2_index(vpage);
 
@@ -263,7 +228,7 @@ void pt_clear_page_table_entry(VPAGE_NUMBER vpage)
     SAY("Tried to remove a vpage that does not exist!\n");
     return;
   }
-  table_L2[L2_index] = 0;//table_L2[L2_index] & ~PRESENT_BIT_MASK;
+  table_L2[L2_index] = 0;
 }
 
 
